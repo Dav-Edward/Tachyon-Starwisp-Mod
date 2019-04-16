@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<dialogues>
+	<dialogue name="Vatish">
+		<start>M0</start>
+		<message id="M0" text="[ACTION]You see a human figure working on the reactor.">
+		<!-- Intro conversation -->
+			<reply id="R1" text="[SKIP]..." next="M1">
+				<condition type="SERVER_VARIABLE_ABSENT" var_name="WISPSHIP_SPAWNED" var_value="1" />
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="HJ_TUTORIAL_STARTED" var_value="1" />
+			</reply>
+			<reply id="R2" text="[SKIP]..." next="TutorialWait">
+			<!-- Wait to complete the tutorial -->
+				<condition type="SERVER_VARIABLE_ABSENT" var_name="HJ_TUTORIAL_STARTED" var_value="1" />
+			</reply>
+			<reply id="R3" text="[SKIP]..." next="MPost1">
+			<!-- Finished the first conversation. Go talk to Solaria. -->
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="WISPSHIP_SPAWNED" var_value="1" />
+				<condition type="SERVER_VARIABLE_ABSENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+			<reply id="R4" text="Hello? (Ask for a ship)" next="PUCC1">
+			<!-- Late players joining conversation aka P.U.C.C -->
+				<condition type="SECTOR_SHIPS_ABSENT" ship_name="VAR(CAMPAIGN_SHIP_ID)" qty="1" />
+				<condition type="SECTOR_SHIPS_ABSENT" ship_name="P.U.C.C" qty="1" />
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="PUCC_BEACON_SECTOR_LOC" var_value="1" any_value="1" />
+			</reply>
+			<reply id="R5" text="I'm ready. Send the P.U.C.C to the ship!" next="WARP_PUCC1">
+			<!-- P.U.C.C ready to go. Waiting for player to get in. -->
+				<condition type="SECTOR_SHIPS_PRESENT" ship_name="P.U.C.C" qty="1" />
+				<condition type="SECTOR_SHIPS_ABSENT" ship_name="VAR(CAMPAIGN_SHIP_ID)" qty="1" />
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="PUCC_BEACON_SECTOR_LOC" var_value="1" any_value="1" />
+				<condition type="SHIP_SYSTEM_ABSENT" system_type="HYPERDRIVE" system_model="PUCC_HyperDrive" target_player="1" all_mob_ships="0" active_system="0" qty="1" />
+			</reply>
+			<reply id="R6" text="[SKIP](Beacon Lost)" next="BeaconLost1">
+			<!-- Beacon on the campaign ship is lost -->
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="WISPSHIP_SPAWNED" var_value="1" />
+				<condition type="SERVER_VARIABLE_ABSENT" var_name="PUCC_BEACON_SECTOR_LOC" var_value="1" any_value="1" />
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="CAMPAIGN_SHIP_ID" var_value="1" any_value="1" />
+			</reply>
+			<reply id="R7" text="[SKIP]..." next="NothingToSay">
+			<!-- After initial conversation and spoke to Solaria. Campaign ship hasn't left. Nothing left to do with Vatish. -->
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="WISPSHIP_SPAWNED" var_value="1" />
+				<condition type="SECTOR_SHIPS_PRESENT" ship_name="VAR(CAMPAIGN_SHIP_ID)" qty="1" />
+			</reply>
+		</message>
+		<message id="TutorialWait" text="[ACTION]They seem to be busy digging around inside. Perhaps you should talk to the captain first.">
+		</message>
+		<message id="MPost1" text="Well, go on. Get to your ship, contact Solaria and get on your way.">
+		</message>
+		<message id="NothingToSay" text="[ACTION]It doesn't seem like Vatish has anything to say to you right now.">
+		</message>
+
+		<!-- Begin initial conversation -->
+		<message id="M1" text="[ACTION]On closer observation, the reactor has been repaired with odd-looking crystals.">
+			<reply id="R1" text="[SKIP]..." next="M2" />
+		</message>
+		<message id="M2" text="[ACTION]Noticing you, the figure quickly withdraws from the reactor.">
+			<reply id="R1" text="[SKIP]..." next="M3" />
+		</message>
+		<message id="M3" text="[ACTION]The figure looks androgynous, short, and rather slim.">
+			<reply id="R1" text="[SKIP]..." next="M4" />
+		</message>
+		<message id="M4" text="[ACTION]Something feels a bit off about their appearance.">
+			<reply id="R1" text="Who are you?" next="M5" />
+			<reply id="R2" text="You're that Starwisp I saw before I died. (Skip Dialogue)" next="SkipFirstDialogue" />
+		</message>
+		<!-- Branch for Skip First Dialogue -->
+		<message id="SkipFirstDialogue" text="That's right, we agreed to assist you. I'll call our ship.">
+			<reply id="R1" text="[SKIP]..." next="SkipFD1" />
+		</message>
+		<message id="SkipFD1" text="[ACTION]Vatish's form glows momentarily, sending an energy pulse to the reactor..">
+			<reply id="R1" text="[SKIP]..." next="M27" />
+		</message>
+		<!-- Branch if you continue first dialogue -->
+		<message id="M5" text="The name's [NPC_NAME]. Are you one of the crew?">
+			<reply id="R1" text="Yes, I'm a guard, my name is [PLAYER_NAME]." next="M6" />
+		</message>
+		<message id="M6" text="I see! The clone replication system must have actually worked!">
+			<reply id="R1" text="[SKIP]..." next="M7" />
+		</message>
+		<message id="M7" text="It was pretty smashed up. But it's okay. I hotwired it back together!">
+			<reply id="R1" text="Yes, except that I don't remember anything." next="M8" />
+		</message>
+		<message id="M8" text="There were some broken pieces left over... I did what I could.">
+			<reply id="R1" text="[SKIP]..." next="M9" />
+		</message>
+		<message id="M9" text="You look fine otherwise... I think.">
+			<reply id="R1" text="You aren't part of the crew, are you?" next="M10" />
+		</message>
+		<message id="M10" text="No. I came on board as soon as the pirates left and did what I could.">
+			<reply id="R1" text="Why were you out here in the first place?" next="M11" />
+		</message>
+		<message id="M11" text="I'm aware of your prototype ship, the DF.">
+			<reply id="R1" text="[SKIP]..." next="M12" />
+		</message>
+		<message id="M12" text="I was sent to investigate it, but the pirates got here first.">
+			<reply id="R1" text="What do you know about it?" next="M13" />
+		</message>
+		<message id="M13" text="[ACTION]Vatish’s expression becomes much more serious.">
+			<reply id="R1" text="[SKIP]..." next="M14" />
+		</message>
+		<message id="M14" text="There is powerful alien technology in your 'prototype' ship.">
+			<reply id="R1" text="[SKIP]..." next="M15" />
+		</message>
+		<message id="M15" text="In fact, it never belonged to the humans in the first place.">
+			<reply id="R1" text="[SKIP]..." next="M16" />
+		</message>
+		<message id="M16" text="But somehow, you got a hold of that technology. And what did you do?">
+			<reply id="R1" text="[SKIP]..." next="M17" />
+		</message>
+		<message id="M17" text="You reverse-engineered it into a super-weapon.">
+			<reply id="R1" text="[SKIP]..." next="M18" />
+		</message>
+		<message id="M18" text="It's a threat to every living being in the universe!">
+			<reply id="R1" text="...And the pirates have it now too." next="M19" />
+		</message>
+		<message id="M19" text="Exactly. They need to be stopped, no matter what.">
+			<reply id="R1" text="I'll stop them any way I can." next="M20" />
+		</message>
+		<message id="M20" text="If you promise us you will destroy it, the collective will assist you.">
+			<reply id="R1" text="[SKIP]..." next="M21" />
+		</message>
+		<message id="M21" text="It's too dangerous to let it fall into pirate hands.">
+			<reply id="R1" text="Collective? What are you talking about?" next="M22" />
+		</message>
+		<message id="M22" text="[ACTION]The human's form vanishes, revealing a glowing orb of plasma in its place.">
+			<reply id="R1" text="What the hell are you?" next="M23" />
+		</message>
+		<message id="M23" text="We are Starwisps. No time to explain, you can ask on the trip if you must.">
+			<reply id="R1" text="[SKIP]..." next="M24" />
+		</message>
+		<message id="M24" text="[ACTION]The creature sends a pulse of energy into the reactor using thin tendrils of plasma.">
+			<reply id="R1" text="[SKIP]..." next="M25" />
+		</message>
+		<message id="M25" text="I called for our ship, they will assist you on your journey.">
+			<reply id="R1" text="Why are you willing to help us?" next="M26" />
+		</message>
+		<message id="M26" text="If that prototype ship isn't destroyed, we may all perish.">
+			<reply id="R1" text="Fair enough." next="M27" />
+		</message>
+		<!-- Skiped Dialogue enters here -->
+		<message id="M27" text="[ACTION]Outside of the station there's a bright flash, and a giant crystal ship jumps close.">
+			<event id="SPAWN_WispShip" target="PLAYER" />
+			<event id="STARWISP_CAPTAIN_BABBLE_ON" target="PLAYER" />
+			<event id="WISPSHIP_COMPLETE" target="PLAYER" />
+			<reply id="R1" text="[SKIP]..." next="M28" />
+		</message>
+		<message id="M28" text="The S.S Aurora is waiting. Radio Solaria on the comms when you get to your ship.">
+			<reply id="R1" text="[SKIP]..." next="M29" />
+		</message>
+		<message id="M29" text="[ACTION]The starwisp creature reassumes the illusion of a human.">
+			<reply id="R1" text="[SKIP]..." next="M30" />
+		</message>
+		<message id="M30" text="I'll stay behind and send any other surviving crew your way. Good luck.">
+			<reply id="R1" text="Yes, sir! ..lady..thing." />
+			<reply id="R2" text="Thanks!" />
+		</message>
+
+		<!-- Late players joining aka P.U.C.C conversation -->
+		<message id="PUCC1" text="[ACTION]The androgynous-looking person turns to face you.">
+			<reply id="R1" text="[SKIP]..." next="PUCC2" />
+		</message>
+		
+		<!-- Main P.U.C.C branch -->
+		<message id="PUCC2" text="Oh! Another survivor! The clone replication system managed to recover you as well.">
+			<reply id="R1" text="I don't remember anything. What's going on?" next="PUCCStoryRecap1" />
+			<reply id="R2" text="I need to join the crew on our ship. (Skip Recap)" next="PUCC3" />			
+			<reply id="R3" text="I'm in a hurry. I need to catch up with my ship. (Skip All Dialogue)" next="PUCCSkip1" />
+		</message>
+
+		<!-- Skip branch -->
+		<message id="PUCCSkip1" text="Okay, I'll have a ship waiting for you outside. It's called the P.U.C.C.">
+			<reply id="R1" text="[SKIP]..." next="PUCC21" />
+		</message>
+		<!-- Skip branch rejoins main P.U.C.C conversation near the end. -->
+
+		
+		<!-- Branch recapping the story for new players -->
+		<message id="PUCCStoryRecap1" text="The cloning system was damaged, so you didn't recover all of your memories.">
+			<reply id="R1" text="[SKIP]..." next="PUCCStoryRecap2" />	
+		</message>
+		<message id="PUCCStoryRecap2" text="Long story short, pirates attacked this space station and stole a prototype ship.">
+			<reply id="R1" text="[SKIP]..." next="PUCCStoryRecap3" />	
+		</message>
+		<message id="PUCCStoryRecap3" text="Your mission is to hunt down the Prototype ship DF and destroy it.">
+			<reply id="R1" text="[SKIP]..." next="PUCCStoryRecap4" />	
+		</message>
+		<message id="PUCCStoryRecap4" text="The prototype has a super-weapon made using powerful reverse-engineered alien technology.">
+			<reply id="R1" text="[SKIP]..." next="PUCCStoryRecap5" />	
+		</message>
+		<message id="PUCCStoryRecap5" text="We, the Starwisp collective, agreed to help you in your mission.">
+			<reply id="R1" text="[SKIP]..." next="PUCCStoryRecap6" />	
+		</message>
+		<message id="PUCCStoryRecap6" text="The DF prototype is a threat to all life in the universe. It must be destroyed.">
+			<reply id="R1" text="[SKIP]..." next="PUCCStoryRecap7" />	
+		</message>
+		<message id="PUCCStoryRecap7" text="I'm sure your crew can catch you up to speed otherwise...">
+			<reply id="R1" text="Then I need to join the crew on our ship." next="PUCC3" />	
+		</message>
+
+		<!-- Story recap rejoins main branch -->
+		<message id="PUCC3" text="Right... about that. There's no more proper space ships in this sector you can use.">
+			<reply id="R1" text="[SKIP]..." next="PUCC4" />
+		</message>
+		<message id="PUCC4" text="Even if you got one, it could take forever to catch up with your ship.">
+			<reply id="R1" text="[SKIP]..." next="PUCC5" />
+		</message>
+		<message id="PUCC5" text="I did come up with something for you, however!">
+			<reply id="R1" text="What was that?" next="PUCC6" />
+		</message>
+		<message id="PUCC6" text="[ACTION]Vatish gives a grin like a mad scientist.">
+			<reply id="R1" text="[SKIP]..." next="PUCC7" />
+		</message>
+		<message id="PUCC7" text="This space station has a shipyard that makes Prototype Unmanned Construction Crafts.">
+			<reply id="R1" text="[SKIP]..." next="PUCC8" />
+		</message>
+		<message id="PUCC8" text="P.U.C.Cs for short. They weren't meant to be manned, but...">
+			<reply id="R1" text="I'm not sure I like where this is going..." next="PUCC9" />
+			<reply id="R2" text="Uhh..." next="PUCC9" />
+		</message>
+		<message id="PUCC9" text="I modified the blueprints, removed some parts and crammed a life support unit inside.">
+			<reply id="R1" text="[SKIP]..." next="PUCC10" />
+		</message>
+		<message id="PUCC10" text="It's a tight fit, but it's space worthy and very fast, though it lacks a shield generator.">
+			<reply id="R1" text="How would that possibly catch up with our ship?" next="PUCC11" />
+		</message>
+		<message id="PUCC11" text="Well... I've been tinkering, and modified a FTL engine to fit inside it.">
+			<reply id="R1" text="[SKIP]..." next="PUCC12" />
+		</message>
+		<message id="PUCC12" text="I took out all the... 'unnecessary' parts, but it's still quite weak on such a tiny ship.">
+			<reply id="R1" text="[SKIP]..." next="PUCC13" />
+		</message>
+		<message id="PUCC13" text="So I hooked it up to the station and super-charged it with the reactor!">
+			<reply id="R1" text="That can't be safe..." next="PUCC14" />
+		</message>
+		<message id="PUCC14" text="Well... it only needs to work once.">
+			<reply id="R1" text="[SKIP]..." next="PUCC15" />
+		</message>
+		<message id="PUCC15" text="We attached a beacon to your ship so the Aurora can follow it.">
+			<reply id="R1" text="[SKIP]..." next="PUCC16" />
+		</message>
+		<message id="PUCC16" text="I'll program it into the FTL system and the autopilot will follow the ship automatically.">
+			<reply id="R1" text="[SKIP]..." next="PUCC17" />
+		</message>
+		<message id="PUCC17" text="The P.U.C.C is so small it can ride the FTL wake your ship makes when it jumps.">
+			<reply id="R1" text="[SKIP]..." next="PUCC18" />
+		</message>
+		<message id="PUCC18" text="It can also be handy in a dogfight. It's fast and can damage the hull or systems quickly.">
+			<reply id="R1" text="[SKIP]..." next="PUCC19" />
+		</message>
+		<message id="PUCC19" text="But it doesn't have any shields, so make sure to dodge frequently.">
+			<reply id="R1" text="Okay. You really think this will work?" next="PUCC20" />
+		</message>
+		<message id="PUCC20" text="I'm... pretty sure it will work. The P.U.C.C is outside.">
+			<reply id="R1" text="[SKIP]..." next="PUCC21" />
+		</message>
+
+		<!-- P.U.C.C conversation skip lands here -->
+		<message id="PUCC21" text="Contact me on the comms when you're ready and I'll install the FTL unit.">
+			<event id="SPAWN_PUCC" target="PLAYER" />
+			<!-- Spawns the P.U.C.C outside -->
+			<reply id="R1" text="Will do." />
+		</message>
+
+		<!-- Ready to warp the P.U.C.C conversation -->
+		<message id="WARP_PUCC1" text="Okay, make sure you're INSIDE the ship and have already claimed it.">
+			<reply id="R1" text="Wait! I'll get in the ship and claim it." />
+			<reply id="R2" text="Yes, ready to go!" next="WARP_PUCC2">
+				<condition type="SECTOR_SHIPS_PRESENT">
+					<condition_param target_player="1"></condition_param>
+					<condition_param ship_name="P.U.C.C"></condition_param>
+					<condition_param crew="[PLAYER_NAME]"></condition_param>
+					<condition_param qty="1"></condition_param>
+				</condition>
+				<condition type="SHIP_SYSTEM_ABSENT">
+					<condition_param system_type="HYPERDRIVE"></condition_param>
+					<condition_param system_model="PUCC_HyperDrive"></condition_param>
+					<condition_param target_player="1"></condition_param>
+					<condition_param all_mob_ships="0"></condition_param>
+					<condition_param active_system="0"></condition_param>
+					<condition_param qty="1"></condition_param>
+				</condition>
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="PUCC_BEACON_SECTOR_LOC" var_value="1" any_value="1" />
+			</reply>
+			<reply id="R3" text="Fire away! (Skip Dialogue)" next="WARP_PUCC5">
+			<!-- Skip the few lines of dialogue -->
+				<condition type="SECTOR_SHIPS_PRESENT">
+					<condition_param target_player="1"></condition_param>
+					<condition_param ship_name="P.U.C.C"></condition_param>
+					<condition_param crew="[PLAYER_NAME]"></condition_param>
+					<condition_param qty="1"></condition_param>
+				</condition>
+				<condition type="SHIP_SYSTEM_ABSENT">
+					<condition_param system_type="HYPERDRIVE"></condition_param>
+					<condition_param system_model="PUCC_HyperDrive"></condition_param>
+					<condition_param target_player="1"></condition_param>
+					<condition_param all_mob_ships="0"></condition_param>
+					<condition_param active_system="0"></condition_param>
+					<condition_param qty="1"></condition_param>
+				</condition>
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="PUCC_BEACON_SECTOR_LOC" var_value="1" any_value="1" />
+			</reply>
+		</message>
+
+		<message id="WARP_PUCC2" text="The modified FTL engine is ready, and will engage the moment I install it." next="WARP_PUCC3">
+			<reply id="R1" text="[SKIP]..." next="WARP_PUCC3" />
+		</message>
+		<message id="WARP_PUCC3" text="By the way... the ship has a built-in fire suppression and repair system.">
+			<reply id="R1" text="Oh nice!" next="WARP_PUCC4" />
+		</message>
+		<message id="WARP_PUCC4" text="It'll come in handy if it bursts into flames from the FTL engine.">
+			<reply id="R1" text="Wait, what?" next="WARP_PUCC5" />
+			<reply id="R2" text="Oh, great..." next="WARP_PUCC5" />
+		</message>
+		<message id="WARP_PUCC5" text="Bon voyage!">
+			<reply id="R1" text="[SKIP]..." />
+			<event id="PUCC_Follow_Beacon" target="PLAYER" />
+		</message>
+
+
+		<message id="BeaconLost1" text="...Strange. I can't find any trace of the beacon we put on your ship.">
+			<reply id="R1" text="[SKIP]..." next="BeaconLost2" />
+		</message>
+		<message id="BeaconLost2" text="Without it, I don't know where to send you.">
+			<reply id="R1" text="[SKIP]..." next="BeaconLost3" />
+		</message>
+		<message id="BeaconLost3" text="I'm afraid I can't help you without a beacon to guide us.">
+			<reply id="R1" text="[SKIP]..." next="BeaconLost4" />
+		</message>
+		<message id="BeaconLost4" text="(If the campaign ship was destroyed, it's Game Over. Reset the server.)">
+			<reply id="R1" text="[SKIP]..." />
+		</message>
+	</dialogue>
+
+	<dialogue name="Solaria">
+		<start>M0</start>
+		<message id="M0" text="[ACTION]You see a white wispy creature surrounded by screens.">
+			<reply id="R01" text="...Hello?" next="M1">
+				<condition type="SERVER_VARIABLE_ABSENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+			<reply id="R02" text="Please stop following or guarding the VAR(WISPSHIP_GUARD_ID) for now." next="StopGuard1">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="WISPSHIP_GUARD_ID" var_value="1" any_value="1" />
+				<condition type="SECTOR_SHIPS_PRESENT" target_player="1" crew="[PLAYER_NAME]" qty="1" />
+			</reply>
+			<reply id="R03" text="Guard our ship please." next="StartGuard1">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+				<condition type="SERVER_VARIABLE_ABSENT" var_name="WISPSHIP_GUARD_ID" var_value="1" any_value="1" />
+				<condition type="SECTOR_SHIPS_PRESENT" target_player="1" crew="[PLAYER_NAME]" qty="1" />
+			</reply>
+			<reply id="R04" text="About your cargo..." next="Cargo1" any_condition="1">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="LASER_WEAPONS" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="BEAM_WEAPONS" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="MISSILE_WEAPONS" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SHIELDS" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="REACTOR" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="OXYGEN" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="PILOTING" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="TELEPORT" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="CAPACITOR" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="DOOR_CONTROL" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="ENGINES" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="HYPERDRIVE" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="MEDICAL" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SENSORS" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="REPAIR" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SYSTEMS_SHOP" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SHIPS_SHOP" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="CONSUMABLES_SHOP" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SHIPYARD" target_player="0" qty="1" />
+			</reply>
+			<reply id="R05" text="Can you send us your scrap?" next="GiveScrap1">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+				<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+				<condition type="SECTOR_SHIPS_PRESENT" target_player="1" crew="[PLAYER_NAME]" qty="1" />
+				<!-- <condition type="SHIP_HULL_PRESENT" target_player="1" all_mob_ships="0" qty="1" /> -->
+			</reply>
+			<reply id="R06" text="Can you send us your missiles?" next="GiveMissiles1">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+				<condition type="SHIP_MISSILES_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+				<condition type="SECTOR_SHIPS_PRESENT" target_player="1" crew="[PLAYER_NAME]" qty="1" />
+				<!-- <condition type="SHIP_HULL_PRESENT" target_player="1" all_mob_ships="0" qty="1" /> -->
+			</reply>
+			<reply id="R07" text="Can you send us your drones?" next="GiveDrones1">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+				<condition type="SHIP_DRONES_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+				<condition type="SECTOR_SHIPS_PRESENT" target_player="1" crew="[PLAYER_NAME]" qty="1" />
+				<!-- <condition type="SHIP_HULL_PRESENT" target_player="1" all_mob_ships="0" qty="1" /> -->
+			</reply>
+			<reply id="R08" text="Shoot Asteroids for us please." next="StartShootAsteroids1">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+				<condition type="SERVER_VARIABLE_ABSENT" var_name="WISPSHIP_SHOOT_ASTEROID" var_value="1" />
+			</reply>
+			<reply id="R09" text="Don't shoot asteroids any more please." next="StopShootAsteroids1">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="WISPSHIP_SHOOT_ASTEROID" var_value="1" />
+			</reply>
+			<reply id="R10" text="Pick up any scrap you find." next="Scavenge_Start">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+				<condition type="SERVER_VARIABLE_ABSENT" var_name="WISPSHIP_SCAVENGE" var_value="1" />
+			</reply>
+			<reply id="R11" text="Please stop picking up scrap." next="Scavenge_Stop">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="WISPSHIP_SCAVENGE" var_value="1" />
+			</reply>
+			<event id="STARWISP_CAPTAIN_BABBLE_OFF" target="PLAYER" />
+		</message>
+		<message id="M1" text="[ACTION]The creature speaks in a surpringly human female voice">
+			<reply id="R1" text="[SKIP]..." next="M2">
+				<condition type="SECTOR_SHIPS_PRESENT" target_player="1" owner="[PLAYER_NAME]" qty="1" />
+			</reply>
+			<reply id="R2" text="[SKIP]..." next="NoCaptian1">
+				<condition type="SECTOR_SHIPS_ABSENT" target_player="1" owner="[PLAYER_NAME]" qty="1" />
+			</reply>
+		</message>
+		<message id="NoCaptian1" text="...I would like to speak to the captian.">
+			<reply id="R1" text="[SKIP]..." next="NoCaptian2" />
+		</message>
+		<message id="NoCaptian2" text="If you haven't claimed your ship, cliam it then contact me again.">
+			<reply id="R1" text="[SKIP]..." />
+		</message>
+		<message id="M2" text="Hi I'm Solaria, captian of the starship Aurora...">
+			<reply id="R1" text="[SKIP]..." next="M3" />
+		</message>
+		<message id="M3" text="Our ship will follow and guard you as best we can...">
+			<reply id="R1" text="[SKIP]..." next="M4" />
+		</message>
+		<message id="M4" text="and our researcher Donis will develop technology on the way.">
+			<reply id="R1" text="[SKIP]..." next="M5" />
+		</message>
+		<message id="M5" text="Call me on the comms if you have any orders">
+			<reply id="R1" text="Understood. Thanks for the help." />
+			<event id="SOLARIA_CONVO_1" target="PLAYER" />
+			<event id="CAMPAIGN_SHIP_ID" target="PLAYER" />
+			<event id="WISPSHIP_GUARD_SHIP_ID" target="PLAYER" />
+			<event id="Add_PUCC_Beacon_To_Ship" target="PLAYER" />
+		</message>
+
+		<message id="Cargo1" text="We can jettison our cargo out the back of the ship.">
+			<reply id="R1" text="[SKIP]..." next="Cargo2" />
+		</message>
+		<message id="Cargo2" text="Would you like us jettison something?">
+			<reply id="R01" text="Jettison everything from your cargo," next="Aurora_Jet_ALL" any_condition="1">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="LASER_WEAPONS" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="BEAM_WEAPONS" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="MISSILE_WEAPONS" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SHIELDS" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="REACTOR" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="OXYGEN" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="PILOTING" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="TELEPORT" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="CAPACITOR" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="DOOR_CONTROL" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="ENGINES" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="HYPERDRIVE" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="MEDICAL" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SENSORS" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="REPAIR" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SYSTEMS_SHOP" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SHIPS_SHOP" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="CONSUMABLES_SHOP" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SHIPYARD" target_player="0" qty="1" />
+			</reply>
+			<reply id="R02" text="Jettison your WEAPONS in your cargo." next="Aurora_Jet_WEAPONS" any_condition="1">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="LASER_WEAPONS" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="BEAM_WEAPONS" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="MISSILE_WEAPONS" target_player="0" qty="1" />
+			</reply>
+			<reply id="R03" text="Jettison your SHIELDS in your cargo." next="Aurora_Jet_SHIELDS">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SHIELDS" target_player="0" qty="1" />
+			</reply>
+			<reply id="R04" text="Jettison your REACTOR in your cargo." next="Aurora_Jet_REACTOR">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="REACTOR" target_player="0" qty="1" />
+			</reply>
+			<reply id="R05" text="Jettison your OXYGEN in your cargo." next="Aurora_Jet_OXYGEN">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="OXYGEN" target_player="0" qty="1" />
+			</reply>
+			<reply id="R06" text="Jettison your PILOTING in your cargo." next="Aurora_Jet_PILOTING">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="PILOTING" target_player="0" qty="1" />
+			</reply>
+			<reply id="R07" text="Jettison your TELEPORT in your cargo." next="Aurora_Jet_TELEPORT">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="TELEPORT" target_player="0" qty="1" />
+			</reply>
+			<reply id="R08" text="Jettison your CAPACITOR in your cargo." next="Aurora_Jet_CAPACITOR">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="CAPACITOR" target_player="0" qty="1" />
+			</reply>
+			<reply id="R09" text="Jettison your DOOR_CONTROL in your cargo." next="Aurora_Jet_DOOR_CONTROL">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="DOOR_CONTROL" target_player="0" qty="1" />
+			</reply>
+			<reply id="R10" text="Jettison your ENGINES in your cargo." next="Aurora_Jet_ENGINES">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="ENGINES" target_player="0" qty="1" />
+			</reply>
+			<reply id="R11" text="Jettison your HYPERDRIVE in your cargo." next="Aurora_Jet_HYPERDRIVE">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="HYPERDRIVE" target_player="0" qty="1" />
+			</reply>
+			<reply id="R12" text="Jettison your MEDICAL in your cargo." next="Aurora_Jet_MEDICAL">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="MEDICAL" target_player="0" qty="1" />
+			</reply>
+			<reply id="R14" text="Jettison your SENSORS in your cargo." next="Aurora_Jet_SENSORS">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SENSORS" target_player="0" qty="1" />
+			</reply>
+			<reply id="R15" text="Jettison your REPAIR in your cargo." next="Aurora_Jet_REPAIR">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="REPAIR" target_player="0" qty="1" />
+			</reply>
+			<reply id="R16" text="Jettison your SHOPS in your cargo." next="Aurora_Jet_SHOPS" any_condition="1">
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SYSTEMS_SHOP" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SHIPS_SHOP" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="CONSUMABLES_SHOP" target_player="0" qty="1" />
+				<condition type="SHIP_CARGO_PRESENT" cargo_type="SHIP_SYSTEM" system_type="SHIPYARD" target_player="0" qty="1" />
+			</reply>
+		</message>
+		<message id="Aurora_Jet_ALL" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_ALL" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_WEAPONS" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_WEAPONS" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_SHIELDS" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_SHIELDS" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_REACTOR" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_REACTOR" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_OXYGEN" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_OXYGEN" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_PILOTING" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_PILOTING" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_TELEPORT" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_TELEPORT" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_CAPACITOR" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_CAPACITOR" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_DOOR_CONTROL" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_DOOR_CONTROL" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_ENGINES" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_ENGINES" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_HYPERDRIVE" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_HYPERDRIVE" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_MEDICAL" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_MEDICAL" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_SENSORS" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_SENSORS" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_REPAIR" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_REPAIR" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+		<message id="Aurora_Jet_SHOPS" text="The requested cargo has been jettisoned.">
+			<event id="Aurora_Jet_SHOPS" target="NPC" />
+			<reply id="R1" text="[SKIP]Jettison something else..." next="Cargo2" />
+		</message>
+
+
+		<message id="GiveScrap1" text="How much scrap would you like?">
+			<reply id="R01" text="100 scrap please." next="Give_100_Scrap">
+				<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" qty="100" />
+			</reply>
+			<reply id="R02" text="50 scrap please." next="Give_50_Scrap">
+				<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" qty="50" />
+			</reply>
+			<reply id="R03" text="25 scrap please." next="Give_25_Scrap">
+				<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" qty="25" />
+			</reply>
+			<reply id="R04" text="15 scrap please." next="Give_15_Scrap">
+				<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" qty="15" />
+			</reply>
+			<reply id="R05" text="10 scrap please." next="Give_10_Scrap">
+				<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" qty="10" />
+			</reply>
+			<reply id="R06" text="5 scrap please." next="Give_5_Scrap">
+				<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" qty="5" />
+			</reply>
+			<reply id="R07" text="4 scrap please." next="Give_4_Scrap">
+				<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+			</reply>
+			<reply id="R08" text="3 scrap please." next="Give_3_Scrap">
+				<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+			</reply>
+			<reply id="R09" text="2 scrap please." next="Give_2_Scrap">
+				<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+			</reply>
+			<reply id="R10" text="1 scrap please." next="Give_1_Scrap">
+				<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+			</reply>
+			<reply id="R11" text="(Main Menu)" next="M0" />
+		</message>
+		<message id="Give_100_Scrap" text="I've transferred the scrap to your ship.">
+			<event id="WISPSHIP_TAKE_100_SCRAP" target="NPC" />
+			<event id="WISPSHIP_GIVE_100_SCRAP" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveScrap1" />
+		</message>
+		<message id="Give_50_Scrap" text="I've transferred the scrap to your ship.">
+			<event id="WISPSHIP_TAKE_50_SCRAP" target="NPC" />
+			<event id="WISPSHIP_GIVE_50_SCRAP" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveScrap1" />
+		</message>
+		<message id="Give_25_Scrap" text="I've transferred the scrap to your ship.">
+			<event id="WISPSHIP_TAKE_25_SCRAP" target="NPC" />
+			<event id="WISPSHIP_GIVE_25_SCRAP" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveScrap1" />
+		</message>
+		<message id="Give_15_Scrap" text="I've transferred the scrap to your ship.">
+			<event id="WISPSHIP_TAKE_15_SCRAP" target="NPC" />
+			<event id="WISPSHIP_GIVE_15_SCRAP" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveScrap1" />
+		</message>
+		<message id="Give_10_Scrap" text="I've transferred the scrap to your ship.">
+			<event id="WISPSHIP_TAKE_10_SCRAP" target="NPC" />
+			<event id="WISPSHIP_GIVE_10_SCRAP" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveScrap1" />
+		</message>
+		<message id="Give_5_Scrap" text="I've transferred the scrap to your ship.">
+			<event id="WISPSHIP_TAKE_5_SCRAP" target="NPC" />
+			<event id="WISPSHIP_GIVE_5_SCRAP" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveScrap1" />
+		</message>
+		<message id="Give_4_Scrap" text="I've transferred the scrap to your ship.">
+			<event id="WISPSHIP_TAKE_4_SCRAP" target="NPC" />
+			<event id="WISPSHIP_GIVE_4_SCRAP" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveScrap4" />
+		</message>
+		<message id="Give_3_Scrap" text="I've transferred the scrap to your ship.">
+			<event id="WISPSHIP_TAKE_3_SCRAP" target="NPC" />
+			<event id="WISPSHIP_GIVE_3_SCRAP" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveScrap1" />
+		</message>
+		<message id="Give_2_Scrap" text="I've transferred the scrap to your ship.">
+			<event id="WISPSHIP_TAKE_2_SCRAP" target="NPC" />
+			<event id="WISPSHIP_GIVE_2_SCRAP" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveScrap1" />
+		</message>
+		<message id="Give_1_Scrap" text="I've transferred the scrap to your ship.">
+			<event id="WISPSHIP_TAKE_1_SCRAP" target="NPC" />
+			<event id="WISPSHIP_GIVE_1_SCRAP" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveScrap1" />
+		</message>
+
+		<message id="GiveMissiles1" text="How many missiles would you like?">
+			<reply id="R01" text="100 missiles please." next="Give_100_Missiles">
+			<condition type="SHIP_MISSILES_PRESENT" target_player="0" all_mob_ships="0" qty="100" />
+			</reply>
+			<reply id="R02" text="50 missiles please." next="Give_50_Missiles">
+				<condition type="SHIP_MISSILES_PRESENT" target_player="0" all_mob_ships="0" qty="50" />
+			</reply>
+			<reply id="R03" text="25 missiles please." next="Give_25_Missiles">
+				<condition type="SHIP_MISSILES_PRESENT" target_player="0" all_mob_ships="0" qty="25" />
+			</reply>
+			<reply id="R04" text="15 missiles please." next="Give_15_Missiles">
+				<condition type="SHIP_MISSILES_PRESENT" target_player="0" all_mob_ships="0" qty="15" />
+			</reply>
+			<reply id="R05" text="10 missiles please." next="Give_10_Missiles">
+				<condition type="SHIP_MISSILES_PRESENT" target_player="0" all_mob_ships="0" qty="10" />
+			</reply>
+			<reply id="R06" text="5 missiles please." next="Give_5_Missiles">
+				<condition type="SHIP_MISSILES_PRESENT" target_player="0" all_mob_ships="0" qty="5" />
+			</reply>
+			<reply id="R07" text="4 missiles please." next="Give_4_Missiles">
+				<condition type="SHIP_MISSILES_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+			</reply>
+			<reply id="R08" text="3 missiles please." next="Give_3_Missiles">
+				<condition type="SHIP_MISSILES_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+			</reply>
+			<reply id="R09" text="2 missiles please." next="Give_2_Missiles">
+				<condition type="SHIP_MISSILES_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+			</reply>
+			<reply id="R10" text="1 missile please." next="Give_1_Missiles">
+				<condition type="SHIP_MISSILES_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+			</reply>
+			<reply id="R11" text="(Main Menu)" next="M0" />
+		</message>
+		<message id="Give_100_Missiles" text="I've transferred the missles to your ship.">
+			<event id="WISPSHIP_TAKE_100_MISSILES" target="NPC" />
+			<event id="WISPSHIP_GIVE_100_MISSILES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveMissiles1" />
+		</message>
+		<message id="Give_50_Missiles" text="I've transferred the missles to your ship.">
+			<event id="WISPSHIP_TAKE_50_MISSILES" target="NPC" />
+			<event id="WISPSHIP_GIVE_50_MISSILES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveMissiles1" />
+		</message>
+		<message id="Give_25_Missiles" text="I've transferred the missles to your ship.">
+			<event id="WISPSHIP_TAKE_25_MISSILES" target="NPC" />
+			<event id="WISPSHIP_GIVE_25_MISSILES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveMissiles1" />
+		</message>
+		<message id="Give_15_Missiles" text="I've transferred the missles to your ship.">
+			<event id="WISPSHIP_TAKE_15_MISSILES" target="NPC" />
+			<event id="WISPSHIP_GIVE_15_MISSILES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveMissiles1" />
+		</message>
+		<message id="Give_10_Missiles" text="I've transferred the missles to your ship.">
+			<event id="WISPSHIP_TAKE_10_MISSILES" target="NPC" />
+			<event id="WISPSHIP_GIVE_10_MISSILES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveMissiles1" />
+		</message>
+		<message id="Give_5_Missiles" text="I've transferred the missles to your ship.">
+			<event id="WISPSHIP_TAKE_5_MISSILES" target="NPC" />
+			<event id="WISPSHIP_GIVE_5_MISSILES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveMissiles1" />
+		</message>
+		<message id="Give_4_Missiles" text="I've transferred the missles to your ship.">
+			<event id="WISPSHIP_TAKE_4_MISSILES" target="NPC" />
+			<event id="WISPSHIP_GIVE_4_MISSILES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveMissiles1" />
+		</message>
+		<message id="Give_3_Missiles" text="I've transferred the missles to your ship.">
+			<event id="WISPSHIP_TAKE_3_MISSILES" target="NPC" />
+			<event id="WISPSHIP_GIVE_3_MISSILES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveMissiles1" />
+		</message>
+		<message id="Give_2_Missiles" text="I've transferred the missles to your ship.">
+			<event id="WISPSHIP_TAKE_2_MISSILES" target="NPC" />
+			<event id="WISPSHIP_GIVE_2_MISSILES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveMissiles1" />
+		</message>
+		<message id="Give_1_Missiles" text="I've transferred the missle to your ship.">
+			<event id="WISPSHIP_TAKE_1_MISSILES" target="NPC" />
+			<event id="WISPSHIP_GIVE_1_MISSILES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveMissiles1" />
+		</message>
+
+		<message id="GiveDrones1" text="How many drones would you like?">
+			<reply id="R01" text="100 drones please." next="Give_100_Drones">
+				<condition type="SHIP_DRONES_PRESENT" target_player="0" all_mob_ships="0" qty="100" />
+			</reply>
+			<reply id="R02" text="50 drones please." next="Give_50_Drones">
+				<condition type="SHIP_DRONES_PRESENT" target_player="0" all_mob_ships="0" qty="50" />
+			</reply>
+			<reply id="R03" text="25 drones please." next="Give_25_Drones">
+				<condition type="SHIP_DRONES_PRESENT" target_player="0" all_mob_ships="0" qty="25" />
+			</reply>
+			<reply id="R04" text="15 drones please." next="Give_15_Drones">
+				<condition type="SHIP_DRONES_PRESENT" target_player="0" all_mob_ships="0" qty="15" />
+			</reply>
+			<reply id="R05" text="10 drones please." next="Give_10_Drones">
+				<condition type="SHIP_DRONES_PRESENT" target_player="0" all_mob_ships="0" qty="10" />
+			</reply>
+			<reply id="R06" text="5 drones please." next="Give_5_Drones">
+				<condition type="SHIP_DRONES_PRESENT" target_player="0" all_mob_ships="0" qty="5" />
+			</reply>
+			<reply id="R07" text="4 drones please." next="Give_4_Drones">
+				<condition type="SHIP_DRONES_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+			</reply>
+			<reply id="R08" text="3 drones please." next="Give_3_Drones">
+				<condition type="SHIP_DRONES_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+			</reply>
+			<reply id="R09" text="2 drones please." next="Give_2_Drones">
+				<condition type="SHIP_DRONES_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+			</reply>
+			<reply id="R10" text="1 drone please." next="Give_1_Drones">
+				<condition type="SHIP_DRONES_PRESENT" target_player="0" all_mob_ships="0" qty="1" />
+			</reply>
+			<reply id="R11" text="(Main Menu)" next="M0" />
+		</message>
+		<message id="Give_100_Drones" text="I've transferred the drones to your ship.">
+			<event id="WISPSHIP_TAKE_100_DRONES" target="NPC" />
+			<event id="WISPSHIP_GIVE_100_DRONES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveDrones1" />
+		</message>
+		<message id="Give_50_Drones" text="I've transferred the drones to your ship.">
+			<event id="WISPSHIP_TAKE_50_DRONES" target="NPC" />
+			<event id="WISPSHIP_GIVE_50_DRONES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveDrones1" />
+		</message>
+		<message id="Give_25_Drones" text="I've transferred the drones to your ship.">
+			<event id="WISPSHIP_TAKE_25_DRONES" target="NPC" />
+			<event id="WISPSHIP_GIVE_25_DRONES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveDrones1" />
+		</message>
+		<message id="Give_15_Drones" text="I've transferred the drones to your ship.">
+			<event id="WISPSHIP_TAKE_15_DRONES" target="NPC" />
+			<event id="WISPSHIP_GIVE_15_DRONES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveDrones1" />
+		</message>
+		<message id="Give_10_Drones" text="I've transferred the drones to your ship.">
+			<event id="WISPSHIP_TAKE_10_DRONES" target="NPC" />
+			<event id="WISPSHIP_GIVE_10_DRONES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveDrones1" />
+		</message>
+		<message id="Give_5_Drones" text="I've transferred the drones to your ship.">
+			<event id="WISPSHIP_TAKE_5_DRONES" target="NPC" />
+			<event id="WISPSHIP_GIVE_5_DRONES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveDrones1" />
+		</message>
+		<message id="Give_4_Drones" text="I've transferred the drones to your ship.">
+			<event id="WISPSHIP_TAKE_4_DRONES" target="NPC" />
+			<event id="WISPSHIP_GIVE_4_DRONES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveDrones1" />
+		</message>
+		<message id="Give_3_Drones" text="I've transferred the drones to your ship.">
+			<event id="WISPSHIP_TAKE_3_DRONES" target="NPC" />
+			<event id="WISPSHIP_GIVE_3_DRONES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveDrones1" />
+		</message>
+		<message id="Give_2_Drones" text="I've transferred the drones to your ship.">
+			<event id="WISPSHIP_TAKE_2_DRONES" target="NPC" />
+			<event id="WISPSHIP_GIVE_2_DRONES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveDrones1" />
+		</message>
+		<message id="Give_1_Drones" text="I've transferred the drone to your ship.">
+			<event id="WISPSHIP_TAKE_1_DRONES" target="NPC" />
+			<event id="WISPSHIP_GIVE_1_DRONES" target="PLAYER" />
+			<reply id="R1" text="[SKIP]More..." next="GiveDrones1" />
+		</message>
+
+		<message id="StartShootAsteroids1" text="Acknowledged. Any asteroids we see are toast." next="M0">
+			<event id="WISPSHIP_SHOOT_ASTEROID_ON" target="PLAYER" />
+			<reply id="R1" text="(Main Menu)" next="M0" />
+		</message>
+		<message id="StopShootAsteroids1" text="Understood. We'll leave asteroids alone." next="M0">
+			<event id="WISPSHIP_SHOOT_ASTEROID_OFF" target="PLAYER" />
+			<reply id="R8" text="(Main Menu)" next="M0" />
+		</message>
+
+		<message id="StopGuard1" text="Acknowledged. We will wait here." next="M0">
+			<event id="WISPSHIP_STOP_GUARD" target="PLAYER" />
+			<reply id="R1" text="(Main Menu)" next="M0" />
+		</message>
+		<message id="StartGuard1" text="Acknowledged. We will guard your ship." next="M0">
+			<event id="WISPSHIP_GUARD_SHIP_ID" target="PLAYER" />
+			<reply id="R1" text="(Main Menu)" next="M0" />
+		</message>
+
+		<message id="Scavenge_Start" text="Sure, we'll collect any scrap we see." next="M0">
+			<event id="WISPSHIP_START_SCAVENGE" target="NPC" />
+			<reply id="R1" text="(Main Menu)" next="M0" />
+		</message>
+		<message id="Scavenge_Stop" text="We'll leave the scrap for you then." next="M0">
+			<event id="WISPSHIP_STOP_SCAVENGE" target="NPC" />
+			<reply id="R1" text="(Main Menu)" next="M0" />
+		</message>
+	</dialogue>
+
+	<dialogue name="STARWISP_RESEARCH">
+		<start>M0</start>
+		<message id="M0" text="[ACTION]blah blah">
+			<reply id="R01" text="...okay" next="M1">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+			<reply id="R02" text="DEBUG MENU" next="Wisp_Debug_Menu">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+				<condition type="SERVER_VARIABLE_ABSENT" var_name="WISP_DEBUG_LOCKOUT" var_value="1" />
+			</reply>
+			<event id="STARWISP_RESEARCH_BABBLE_OFF" target="PLAYER" />
+		</message>
+		<message id="Wisp_Debug_Menu" text="DEBUG MENU:">
+			<reply id="R01" text="...okay" next="M1">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+			<reply id="R02" text="DEBUG: Spawn Asteroids" next="Debug_Asteroids">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+			<reply id="R03" text="DEBUG: Spawn Lots Of Ships" next="Debug_ShipSpawn">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+			<reply id="R04" text="DEBUG: Jet TEST" next="WISP_DEBUG_Jet_TEST">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+			<reply id="R05" text="DEBUG: Special Gear" next="Debug_SpecialGear">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+			<reply id="R06" text="DEBUG: Jettison your scrap." next="Debug_Jet_Scrap">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+			<reply id="R07" text="DEBUG: Jettison your missiles." next="Debug_Jet_Missiles">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+			<reply id="R08" text="DEBUG: Jettison your drones." next="Debug_Jet_Drones">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+			<reply id="R09" text="DEBUG: Force Story Trigger" next="Debug_Story_Trigger">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+			<reply id="R10" text="DEBUG: Deck the Halls" next="Debug_Decked_Out">
+				<condition type="SERVER_VARIABLE_PRESENT" var_name="SOLARIA_CONVO_1" var_value="1" />
+			</reply>
+		</message>
+		<message id="Debug_Asteroids" text="Asteroids!">
+			<event id="SPAWN_DEAD_SHIP_PART" target="PLAYER" />
+		</message>
+		<message id="Debug_ShipSpawn" text="Spawning a ton of random ships.">
+			<event id="WISP_DEBUG_SPAWN_SHIPS" />
+		</message>
+		<message id="WISP_DEBUG_Jet_TEST" text="Testing Jettison.">
+			<event id="WISP_DEBUG_Jet_TEST" />
+		</message>
+		<message id="Debug_SpecialGear" text="Adding Boarding Drones to your ship cargo.">
+			<event id="Debug_SpecialGear" target="PLAYER" />
+		</message>
+		<message id="Debug_Jet_Scrap" text="Jettisoning scrap...">
+			<event id="Aurora_Jet_Scrap" target="NPC" />
+		</message>
+		<message id="Debug_Jet_Missiles" text="Jettisoning missiles...">
+			<event id="Aurora_Jet_Missiles" target="NPC" />
+		</message>
+		<message id="Debug_Jet_Drones" text="Jettisoning drones...">
+			<event id="Aurora_Jet_Drones" target="NPC" />
+		</message>
+		<message id="Debug_Decked_Out" text="Deck the halls with utter power">
+			<event id="Debug_Decked_Out" target="NPC" />
+		</message>
+		<message id="Debug_Story_Trigger" text="Which Story Trigger?">
+			<reply id="R01" text="Story 1 - Tutorial" next="Debug_Story_Trigger_1" />
+			<reply id="R02" text="Story 2 - USC" next="Debug_Story_Trigger_2" />
+			<reply id="R03" text="Story 3 - KEK" next="Debug_Story_Trigger_3" />
+			<reply id="R04" text="Story 4 - Faught Bears" next="Debug_Story_Trigger_4" />
+			<reply id="R05" text="Story 5 - Return to Kek with crystal" next="Debug_Story_Trigger_5" />
+			<reply id="R06" text="Story 6 - EMP_Error Quest" next="Debug_Story_Trigger_6" />
+		</message>
+		<message id="Debug_Story_Trigger_1" text="Story 1 Triggered">
+		<event id="WISP_STORY_TRIGGER_1" target="NPC" />
+		</message>
+		<message id="Debug_Story_Trigger_2" text="Story 2 Triggered">
+		<event id="WISP_STORY_TRIGGER_2" target="NPC" />
+		</message>
+		<message id="Debug_Story_Trigger_3" text="Story 3 Triggered">
+		<event id="WISP_STORY_TRIGGER_3" target="NPC" />
+		</message>
+		<message id="Debug_Story_Trigger_4" text="Story 4 Triggered">
+		<event id="WISP_STORY_TRIGGER_4" target="NPC" />
+		</message>
+		<message id="Debug_Story_Trigger_5" text="Story 5 Triggered">
+		<event id="WISP_STORY_TRIGGER_5" target="NPC" />
+		</message>
+		<message id="Debug_Story_Trigger_6" text="Story 6 Triggered">
+		<event id="WISP_STORY_TRIGGER_6" target="NPC" />
+		</message>
+	</dialogue>
+
+	<dialogue name="STARWISP_UPGRADES">
+		<start>M0</start>
+		<message id="M0" text="[ACTION]blah blah">
+			<reply id="R1" text="...okay" next="M1">
+				<!-- <condition type="SERVER_VARIABLE_ABSENT">
+					<condition_param var_name="SOLARIA_CONVO_1"></condition_param>
+					<condition_param var_value="1"></condition_param>
+				</condition> -->
+			</reply>
+			<event id="STARWISP_UPGRADES_BABBLE_OFF" target="PLAYER" />
+		</message>
+	</dialogue>
+</dialogues>

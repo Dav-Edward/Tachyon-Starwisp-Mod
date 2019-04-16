@@ -1,0 +1,165 @@
+﻿﻿Starwisp Dialogue Draft
+
+Vatish
+
+*** indicates the condition/branch involved
+Text plain with or without [ACTION] is the NPC talking
+>  indicates a player reply
+
+[ACTION]You see a human figure working on the reactor.
+***TutorialWait - If you haven’t finished the tutorial yet
+    [ACTION]They seem to be busy digging around inside. Perhaps you should talk to the captain first.
+***After tutorial
+[ACTION]On closer observation, the reactor has been repaired with odd-looking crystals.
+>[SKIP]...
+[ACTION]Noticing you, the figure quickly withdraws from the reactor.
+>[SKIP]...
+[ACTION]The figure looks androgynous, short, and rather slim.
+>[SKIP]...
+[ACTION]Something feels a bit off about their appearance.
+>Who are you?
+>You're that Starwisp I saw before I died. (Skip Dialogue)
+    **Skip version
+    That's right, we agreed to assist you. I'll call our ship.
+    [ACTION]Vatish's form glows momentarily, sending an energy pulse to the reactor.
+    >[SKIP]...
+    **Skip to below noted as Short Dialogue skip
+The name's [NPC_NAME]. Are you one of the crew?
+>Yes, I'm a guard, my name is [PLAYER_NAME].
+I see! The clone replication system must have actually worked!
+>[SKIP]...
+It was pretty smashed up. But it's okay. I hotwired it back together!
+>Yes, except that I don't remember anything.
+There were some broken pieces left over... I did what I could.
+>[SKIP]...
+You look fine otherwise... I think.
+>You aren't part of the crew, are you?
+No. I came on board as soon as the pirates left and did what I could.
+>Why were you out here in the first place?
+I'm aware of your prototype ship, the DF.
+>[SKIP]...
+I was sent to investigate it, but the pirates got here first.
+>What do you know about it?
+[ACTION]Vatish’s expression becomes much more serious.
+>[SKIP]...
+There is powerful alien technology in your 'prototype' ship.
+>[SKIP]...
+In fact, it never belonged to the humans in the first place.
+>[SKIP]...
+But somehow, you got a hold of that technology. And what did you do?
+>[SKIP]...
+You reverse-engineered it into a super-weapon.
+>[SKIP]...
+It's a threat to every living being in the universe!
+>...And the pirates have it now too.
+Exactly. They need to be stopped, no matter what.
+>I'll stop them any way I can.
+If you promise us you will destroy it, the collective will assist you.
+>[SKIP]...
+It's too dangerous to let fall into pirate hands.
+>Collective? What are you talking about?
+[ACTION]The human's form vanishes, revealing a glowing orb of plasma in its place.
+>What the hell are you?
+We are Starwisps. No time to explain, you can ask on the trip if you must.
+>[SKIP]...
+[ACTION]The creature sends a pulse of energy into the reactor using thin tendrils of plasma.
+>[SKIP]...
+I called for our ship, they will assist you on your journey.
+>Why are you willing to help us?
+If that prototype ship isn't destroyed, we may all perish.
+>Fair enough.
+
+**Short Dialogue skips to here
+[ACTION]Outside of the station there's a bright flash, and a giant crystal ship jumps close.
+>[SKIP]...
+The S.S Aurora is waiting. Radio Solaria on the comms when you get to your ship.
+>[SKIP]...
+[ACTION]The starwisp creature reassumes the illusion of a human.
+>[SKIP]...
+I'll stay behind and send any other surviving crew your way. Good luck.
+>Yes, sir! ..lady..thing.
+>Thanks!
+
+***Later players joining game aka PUCC
+>Hello? (Ask for a ship)
+>I'm in a hurry. I need to catch up with my ship. (Skip Dialogue)
+    **Jumps to Skip Dialogue below
+[ACTION]The androgynous-looking person turns to face you.
+>[SKIP]...
+Oh! Another survivor! The clone replication system managed to recover you as well.
+>I don't remember anything. What's going on?
+>I need to join the crew on our ship.
+**What's going on?
+    The cloning system was damaged, so you didn't recover all of your memories.
+    >[SKIP]...
+    Long story short, pirates attacked this space station and stole a prototype ship.
+    >[SKIP]...
+    Your mission is to hunt down the Prototype ship DF and destroy it.
+    >[SKIP]...
+    The prototype has a super-weapon made using powerful reverse-engineered alien technology.
+    >[SKIP]...
+    We, the Starwisp collective, agreed to help you in your mission.
+    >[SKIP]...
+    The DF prototype is a threat to all life in the universe. It must be destroyed.
+    >[SKIP]...
+    I'm sure your crew can catch you up to speed otherwise...
+    >Then I need to join the crew on our ship.
+**Join crew
+Right... about that. There's no more proper space ships in this sector you can use.
+>[SKIP]...
+Even if you got one, it could take forever to catch up with your ship.
+>[SKIP]...
+I did come up with something for you, however!
+>What was that?
+[ACTION]Vatish gives a grin like a mad scientist.
+>[SKIP]...
+This space station has a shipyard that makes Prototype Unmanned Construction Crafts.
+>[SKIP]...
+P.U.C.Cs for short. They weren't meant to be manned, but...
+>I'm not sure I like where this is going...
+>Uhh...
+I modified the blueprints, removed some parts and crammed a life support unit inside.
+>[SKIP]...
+It's a tight fit, but it's space worthy and very fast, though it lacks a shield generator.
+>How would that possibly catch up with our ship?
+Well... I've been tinkering, and modified a FTL engine to fit inside it.
+>[SKIP]...
+I took out all the... 'unnecessary' parts, but it's still quite weak on such a tiny ship.
+>[SKIP]...
+So I hooked it up to the station and super-charged it with the reactor!
+>That can't be safe...
+Well... it only needs to work once.
+>[SKIP]...
+We attached a beacon to your ship so the Aurora can follow it.
+>[SKIP]...
+I'll program it into the FTL system and the autopilot will follow the ship automatically.
+>[SKIP]...
+The P.U.C.C is so small it can ride the FTL wake your ship makes when it jumps.
+>[SKIP]...
+It can also be handy in a dogfight. It's fast and can damage the hull or systems quickly.
+>[SKIP]...
+But it doesn't have any shields, so make sure to dodge frequently.
+>Okay. You really think this will work?
+I'm... pretty sure it will work. The P.U.C.C is outside.
+>[SKIP]...
+    **If used Skip Dialogue
+        The P.U.C.C is outside.
+        >[SKIP]...
+Contact me on the comms when you're ready and I'll install the FTL unit.
+>Will do.
+
+**When radioed on comms
+>I'm ready. Send the P.U.C.C to the ship!
+Okay, make sure you're INSIDE the ship and have already claimed it.
+>Wait! I'll get in the ship and claim it.
+>Yes, ready to go!
+>Fire away! (Skip Dialogue)  **Skips to jump stage instantly
+The modified FTL engine is ready, and will engage the moment I install it.
+>[SKIP]...
+By the way... the ship has a built-in fire suppression and repair system.
+>Oh nice!
+It'll come in handy if it bursts into flames from the FTL engine. Bon voyage!
+>Wait, what?
+>Oh, great...
+*The ship jumps, during FTL the ship bursts into flames around the HyperDrive
+
