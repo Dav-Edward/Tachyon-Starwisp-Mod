@@ -389,7 +389,7 @@
 		</add_ship>
 	</event>
 	<event type="MODIFY_SHIP" name="PREPARE_Wisp_Miner" all_mob_ships="0">
-		<event_param install_system_model_direct="Wisp_Miner_Reactor:1:1" />
+		<event_param install_system_model_direct="Wisp_Drone_Reactor:1:1" />
 		<event_param install_system_model_direct="Wisp_Mining_BeamA:3:1" />
 		<event_param install_system_model_direct="Wisp_Mining_BeamB:3:2" />
 	</event>
@@ -425,8 +425,8 @@
 			<ship_param pos="VAR(AURORA_POS)" />
 			<ship_param min_missile_ammo="0" />
 			<ship_param max_missile_ammo="0" />
-			<ship_param min_health="1" />
-			<ship_param max_health="1" />
+			<ship_param min_health="8" />
+			<ship_param max_health="8" />
 			<event_param chain_event="PREPARE_Wisp_Repair" />
 			<ship_ai type="EVENT_TRIGGER" CREWLESS="1" TIMER="5" ai_id="Wisp_Repair_SelfDestruct">
 				<ship_ai_condition type="SECTOR_SHIPS_ABSENT" ship_name="Aurora" qty="1" />
@@ -439,7 +439,7 @@
 		</add_ship>
 	</event>
 	<event type="MODIFY_SHIP" name="PREPARE_Wisp_Repair" all_mob_ships="0">
-		<event_param install_system_model_direct="Wisp_Miner_Reactor:1:1" />
+		<event_param install_system_model_direct="Wisp_Drone_Reactor:1:1" />
 		<event_param install_system_model_direct="Wisp_Repair_BeamA:3:1" />
 		<event_param install_system_model_direct="Wisp_Repair_BeamB:3:2" />
 	</event>
@@ -1029,6 +1029,7 @@
 		<event_param add_system_model_to_cargo="Vacc_Bomb2" />
 		<event_param add_system_model_to_cargo="SHIPYARD" />
 		<event_param add_system_model_to_cargo="TELEPORT2" />
+		<event_param add_system_model_to_cargo="Wisp_Repair_BeamA" />
 		<event_param give_scrap="9999" />
 		<event_param give_missiles="99" />
 		<event_param give_drones="99" />
