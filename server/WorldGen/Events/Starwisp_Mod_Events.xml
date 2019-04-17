@@ -412,11 +412,15 @@
 		<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="1" />
 	</event>
 
-
 	<event type="SERVER_VARIABLE" name="SPAWN_Wisp_Repair">
 		<event_param var_name="AURORA_POS"/>
 		<event_param var_value="[SHIP_POS]"/>
+		<event_param chain_event="Set_Drone_Repair_Aurora" />
 		<event_param chain_event="SPAWN_Wisp_Repair2" />
+	</event>
+	<event type="SERVER_VARIABLE" name="Set_Drone_Repair_Aurora">
+		<event_param var_name="Drone_Repair_Aurora"/>
+		<event_param var_value="1"/>
 	</event>
 	<event type="SPAWN_SHIP" name="SPAWN_Wisp_Repair2" chain_events_to_created="1">
 		<add_ship>
@@ -433,7 +437,7 @@
 				<ship_ai_param EVENT="REMOVE_Wisp_Repair" />
 			</ship_ai>
 			<ship_ai type="SHIP_HUNTER" CREWLESS="1" TARGET="Aurora">
-				<ship_ai_condition type="SHIP_HULL_ABSENT" target_player="0" all_mob_ships="0" qty="100" />
+				<ship_ai_condition type="SERVER_VARIABLE_PRESENT" var_name="Drone_Repair_Aurora" var_value="1" />
 			</ship_ai>
 			<ship_ai type="AUTOREPAIR" CREWLESS="1" />
 		</add_ship>
@@ -451,6 +455,13 @@
 		<event_param take_scrap="2" />
 		<event_param give_hull="1" />
 		<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="2" />
+		<condition type="SHIP_HULL_ABSENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="100" />
+	</event>
+	<event type="SERVER_VARIABLE" name="Check_Drone_Repair_Aurora">
+		<event_param var_name="Drone_Repair_Aurora"/>
+		<event_param var_value="0"/>
+		<condition type="SHIP_HULL_PRESENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="99" />
+		<event_param chain_event="REMOVE_Wisp_Repair" />
 	</event>
 
 	<event type="SERVER_VARIABLE" name="WISPSHIP_START_SCAVENGE" var_name="WISPSHIP_SCAVENGE" var_value="1" />
