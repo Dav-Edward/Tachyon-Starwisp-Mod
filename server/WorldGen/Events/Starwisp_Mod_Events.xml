@@ -3,7 +3,7 @@
 	<event type="WORLD_GEN" name="50_STARWISP_MOD">
 		<event_param chain_event="STARWISP_MOD_INIT" />
 	</event>
-	
+
 	<event type="SERVER_VARIABLE" name="SET_WISP_DEBUG" var_name="WISP_DEBUG" var_value="1" />
 
 	<event type="SPAWN_SHIP" name="STARWISP_MOD_INIT" nonstop="1" sector="VAR(STARTING_SECTOR)" chain_events_to_created="1">
@@ -117,7 +117,7 @@
 		<event_param break_system_type="HYPERDRIVE" />
 		<event_param break_system_type="SENSORS" />
 	</event>
-	
+
 	<event type="MODIFY_SHIP" name="PUCC_ChargeHD" for_ship_name="P.U.C.C" all_mob_ships="0">
 		<event_param charge_hd="10000"></event_param>
 	</event>
@@ -129,7 +129,7 @@
 	</event>
 	<event type="SERVER_VARIABLE" name="PUCC_GID_CLEANUP2" var_name="PUCC_GID_SECTOR" var_value="" />
 
-	
+
 	<event type="SPAWN_SHIP" name="SPAWN_WispShip" chain_events_to_created="1">
 		<event_param sector="VAR(STARTING_SECTOR)" />
 		<event_param chain_event="PREPARE_AURORA" />
@@ -564,7 +564,7 @@
 	<event type="MODIFY_SHIP" name="WISPSHIP_TAKE_1_DRONES" all_mob_ships="0" take_drones="1" />
 	<event type="MODIFY_SHIP" name="WISPSHIP_GIVE_1_DRONES" all_mob_ships="0" give_drones="1" />
 
-	
+
 
 	<event type="MODIFY_SHIP" name="Aurora_Jet_ALL" all_mob_ships="0" eject_direction="LEFT" eject_all_cargo="1" />
 
@@ -931,42 +931,42 @@
 	<event type="MODIFY_SECTOR" name="ST_DO_NOTHING">
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_1" var_name="WISP_STORY_PROGRESS" var_value="1">
-        <event_param chain_event="Remove_ST_TRIGGER_1" />
+		<event_param chain_event="Remove_ST_TRIGGER_1" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_2" var_name="WISP_STORY_PROGRESS" var_value="2">
-        <event_param chain_event="Remove_ST_TRIGGER_2" />
+		<event_param chain_event="Remove_ST_TRIGGER_2" />
 		<event_param chain_event="UPGRADE_AURORA_SHIELDS2" />
 		<event_param chain_event="UPGRADE_AURORA_ENGINES2" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_3" var_name="WISP_STORY_PROGRESS" var_value="3">
-        <event_param chain_event="Remove_ST_TRIGGER_3" />
+		<event_param chain_event="Remove_ST_TRIGGER_3" />
 		<event_param chain_event="UPGRADE_AURORA_ENGINES3" />
 		<event_param chain_event="UPGRADE_AURORA_SHIELDS3" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_4" var_name="WISP_STORY_PROGRESS" var_value="4">
-        <event_param chain_event="Remove_ST_TRIGGER_4" />
+		<event_param chain_event="Remove_ST_TRIGGER_4" />
 		<event_param chain_event="UPGRADE_AURORA_ENGINES4" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_5" var_name="WISP_STORY_PROGRESS" var_value="5">
-        <event_param chain_event="Remove_ST_TRIGGER_5" />
+		<event_param chain_event="Remove_ST_TRIGGER_5" />
 		<event_param chain_event="UPGRADE_AURORA_SHIELDS4" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_6" var_name="WISP_STORY_PROGRESS" var_value="6">
-        <event_param chain_event="Remove_ST_TRIGGER_6" />
+		<event_param chain_event="Remove_ST_TRIGGER_6" />
 		<event_param chain_event="UPGRADE_AURORA_SHIELDS5" />
 		<event_param chain_event="UPGRADE_AURORA_ENGINES5" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_7" var_name="WISP_STORY_PROGRESS" var_value="7">
-        <event_param chain_event="Remove_ST_TRIGGER_7" />
+		<event_param chain_event="Remove_ST_TRIGGER_7" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_8" var_name="WISP_STORY_PROGRESS" var_value="8">
-        <event_param chain_event="Remove_ST_TRIGGER_8" />
+		<event_param chain_event="Remove_ST_TRIGGER_8" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_9" var_name="WISP_STORY_PROGRESS" var_value="9">
-        <event_param chain_event="Remove_ST_TRIGGER_9" />
+		<event_param chain_event="Remove_ST_TRIGGER_9" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_10" var_name="WISP_STORY_PROGRESS" var_value="10">
-        <event_param chain_event="Remove_ST_TRIGGER_10" />
+		<event_param chain_event="Remove_ST_TRIGGER_10" />
 	</event>
 	<event type="MODIFY_SHIP" name="Remove_ST_TRIGGER_1" for_ship_name="Aurora" remove_ship_ai_id="ST_TRIGGER_1" />
 	<event type="MODIFY_SHIP" name="Remove_ST_TRIGGER_2" for_ship_name="Aurora" remove_ship_ai_id="ST_TRIGGER_2" />
@@ -994,14 +994,14 @@
 		<event_param chain_event="SET_CAMPAIGN_SHIP_ID" />
 	</event>
 	<event type="SERVER_VARIABLE" name="SET_CAMPAIGN_SHIP_ID" var_name="CAMPAIGN_SHIP_ID" var_value="[SHIP_NAME]" />
-	
+
 	<event type="MODIFY_SHIP" name="WISPSHIP_GUARD_SHIP_ID" all_mob_ships="0">
 		<event_param chain_events_to_modified="1" />
 		<event_param chain_event="SET_WISPSHIP_GUARD_ID" />
 	</event>
 	<event type="SERVER_VARIABLE" name="SET_WISPSHIP_GUARD_ID" var_name="WISPSHIP_GUARD_ID" var_value="[SHIP_NAME]" >
 		<event_param chain_event="WISPSHIP_GUARD_SHIP" />
-	</event>	
+	</event>
 	<event type="MODIFY_SHIP" name="WISPSHIP_GUARD_SHIP" for_ship_name="Aurora">
 		<ship_ai type="SHIP_GUARD">
 			<ship_ai_param GNAME="VAR(WISPSHIP_GUARD_ID)" />
