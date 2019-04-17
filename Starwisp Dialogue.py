@@ -1,4 +1,4 @@
-from diagen import Label, Choice, Condition, Goto, End, Event, Reply, InlineEvent, EventDef, ChainEvent, SpawnNPC, AddShip, Ai, AddDebris
+#from diagen import Label, Choice, Condition, Goto, End, Event, Reply, InlineEvent, EventDef, ChainEvent, SpawnNPC, AddShip, Ai, AddDebris
 #remove above line before compile. This just stops python linter from freaking out
 # Starwisp Dialogue Rewirte
 
@@ -12,6 +12,7 @@ diagen_options = {
 # The tutorial has not be completed
 tutorial_wait = [
     Condition("SERVER_VARIABLE_ABSENT", var_name="HJ_TUTORIAL_STARTED", var_value=1),
+    Condition("SERVER_VARIABLE_ABSENT", var_name="WISPSHIP_SPAWNED", var_value=1),
 ]
 
 
@@ -78,7 +79,7 @@ Vatish = [
                 [
                     Reply("[SKIP](Examine)"),
                     *Vatish_Description,
-                ]
+                ],
             ]),
             Label("Vatish_WhoAreYou"),
             "The name's [NPC_NAME]. Are you one of the crew?",
@@ -260,14 +261,14 @@ Vatish = [
             "I'm afraid I can't help you without a beacon to guide us.",
             "(If the campaign ship was destroyed, it's Game Over. Reset the server.)",
             End,
-        ]
-    ]),
-    [
+        ],
+        [
         Reply("(Examine)"),
         Condition("SERVER_VARIABLE_PRESENT", var_name="WISPSHIP_SPAWNED", var_value=1),
         Condition("SERVER_VARIABLE_ABSENT", var_name="SOLARIA_CONVO_1", var_value=1),
         *Vatish_Description,
-    ],
+        ],
+    ]),
 ]
 #End Vatish Dialogue
 
@@ -372,7 +373,7 @@ Solaria = [
             "I really got to teach them subtlety.",
         ],
     ]),
-
+    "In any case, we use holographic projections to appear like humans.",
     Reply("Why do you make yourselves look like humans?"),
     "Well... Part of it is to make a good first impression.",
     Choice("Another part is small stuff like you can read our expressions and we don't stand out.", [
@@ -388,7 +389,7 @@ Solaria = [
     ]),
     "Well there's no point keeping up my human guise at this point.",
     "[ACTION]The human figure vanishes revealing a white ball of plasma.",
-    "Well, at least I can relax now.",
+    "At least I can relax now.",
 
     Label("EndFirstConvo"),
     Choice("Contact me on the comms if ya need anything or have any more questions.", [
@@ -430,7 +431,7 @@ Solaria = [
                 [
                     Reply("About your mining drones."),
                     "If you ask me to mine asteroids, I can deploy mining drones.",
-                    "I'll only deploy them if there are asteroids nearby."
+                    "I'll only deploy them if there are asteroids nearby.",
                     "They're fragile, but cheap so I can deploy them even during a fight.",
                     "Although they are slower than just shooting asteroids, they yield more scrap.",
                     "We can only get the most scrap out of asteroids we mine without assistance.",
@@ -445,8 +446,9 @@ Solaria = [
                     "...and the occasional personnel that get in the way.",
                     "However they do not damage ship hulls so we can't destroy a ship by ourselves.",
                     "Our targeting systems are fast as well, but highly inaccurate I must say.",
+                    Reply("[SKIP]..."),
                     "If you need us to stop attacking ships, just tell us to stop guarding you.",
-                    "Make sure to ask us to guard you again if you want us to follow you when you.",
+                    "Make sure to ask us to guard you again if you want us to follow you.",
                     #Insert about weapons
                 ],
                 [
