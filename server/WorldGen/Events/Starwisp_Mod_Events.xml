@@ -3,7 +3,7 @@
 	<event type="WORLD_GEN" name="50_STARWISP_MOD">
 		<event_param chain_event="STARWISP_MOD_INIT" />
 	</event>
-	
+
 	<event type="SERVER_VARIABLE" name="SET_WISP_DEBUG" var_name="WISP_DEBUG" var_value="1" />
 
 	<event type="SPAWN_SHIP" name="STARWISP_MOD_INIT" nonstop="1" sector="VAR(STARTING_SECTOR)" chain_events_to_created="1">
@@ -117,7 +117,7 @@
 		<event_param break_system_type="HYPERDRIVE" />
 		<event_param break_system_type="SENSORS" />
 	</event>
-	
+
 	<event type="MODIFY_SHIP" name="PUCC_ChargeHD" for_ship_name="P.U.C.C" all_mob_ships="0">
 		<event_param charge_hd="10000"></event_param>
 	</event>
@@ -129,7 +129,7 @@
 	</event>
 	<event type="SERVER_VARIABLE" name="PUCC_GID_CLEANUP2" var_name="PUCC_GID_SECTOR" var_value="" />
 
-	
+
 	<event type="SPAWN_SHIP" name="SPAWN_WispShip" chain_events_to_created="1">
 		<event_param sector="VAR(STARTING_SECTOR)" />
 		<event_param chain_event="PREPARE_AURORA" />
@@ -166,11 +166,14 @@
 				<ship_ai_condition type="SECTOR_SHIPS_ABSENT" ship_name="Starwisp Mining Drone" qty="2" />
 				<ship_ai_param ai_id="Wisp_Miner_Spawner" />
 			</ship_ai>
-			<ship_ai type="EVENT_TRIGGER" TIMER="5">
+			<ship_ai type="EVENT_TRIGGER" TIMER="10">
 				<ship_ai_condition type="SHIP_HULL_ABSENT" target_player="0" all_mob_ships="0" qty="100" />
 				<ship_ai_condition type="SHIP_COMBAT_ABSENT" all_mob_ships="1" />
 				<ship_ai_condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" qty="2" />
-				<ship_ai_param EVENT="AURORA_REPAIR_HULL" />
+				<!-- <ship_ai_condition type="SECTOR_SHIPS_ABSENT" ship_name="Starwisp Repair Drone" qty="1" /> -->
+				<ship_ai_param EVENT="SPAWN_Wisp_Repair" />
+				<ship_ai_param EVENT="Set_Drone_Repair_Aurora" />
+				<!-- <ship_ai_param EVENT="AURORA_REPAIR_HULL" /> -->
 			</ship_ai>
 			<ship_ai type="EVENT_TRIGGER" TIMER="30">
 				<!-- Story Event: Completed Tutorial -->
@@ -387,14 +390,13 @@
 		</add_ship>
 	</event>
 	<event type="MODIFY_SHIP" name="PREPARE_Wisp_Miner" all_mob_ships="0">
-		<event_param install_system_model_direct="Wisp_Miner_Reactor:1:1" />
+		<event_param install_system_model_direct="Wisp_Drone_Reactor:1:1" />
 		<event_param install_system_model_direct="Wisp_Mining_BeamA:3:1" />
 		<event_param install_system_model_direct="Wisp_Mining_BeamB:3:2" />
 	</event>
 	<event type="REMOVE_SHIP" name="REMOVE_Wisp_Miner">
 		<event_param for_ship_name="Starwisp Mining Drone" />
 	</event>
-
 	<event type="MODIFY_SHIP" name="Wisp_Mining_Beam_Hit">
 		<event_param chain_event="Wisp_Mining_Beam_Hit_HasScrap" />
 		<!-- <event_param ship_color="50:0:0" /> -->
@@ -409,6 +411,65 @@
 		<event_param eject_scrap="15" />
 		<event_param random_eject_direction="1" />
 		<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="1" />
+	</event>
+
+
+	<event type="SERVER_VARIABLE" name="Set_Drone_Repair_Aurora">
+		<event_param var_name="Drone_Repair_Aurora"/>
+		<event_param var_value="1"/>
+	</event>
+	<event type="SERVER_VARIABLE" name="SPAWN_Wisp_Repair">
+		<event_param var_name="AURORA_POS"/>
+		<event_param var_value="[SHIP_POS]"/>
+		<event_param chain_event="SPAWN_Wisp_Repair2" />
+	</event>
+	<event type="SPAWN_SHIP" name="SPAWN_Wisp_Repair2" chain_events_to_created="1">
+		<condition type="SECTOR_SHIPS_ABSENT" ship_name="Starwisp Repair Drone" qty="1" />
+		<add_ship>
+			<ship_param ship_model="Starwisp_Repair" />
+			<ship_param ship_name="Starwisp Repair Drone" />
+			<ship_param pos="VAR(AURORA_POS)" />
+			<ship_param min_missile_ammo="0" />
+			<ship_param max_missile_ammo="0" />
+			<ship_param min_health="8" />
+			<ship_param max_health="8" />
+			<event_param chain_event="PREPARE_Wisp_Repair" />
+			<ship_ai type="EVENT_TRIGGER" CREWLESS="1" TIMER="5" ai_id="Wisp_Repair_SelfDestruct">
+				<ship_ai_condition type="SECTOR_SHIPS_ABSENT" ship_name="Aurora" qty="1" />
+				<ship_ai_param EVENT="REMOVE_Wisp_Repair" />
+			</ship_ai>
+			<ship_ai type="SHIP_HUNTER" CREWLESS="1" TARGET="Aurora">
+				<ship_ai_condition type="SERVER_VARIABLE_PRESENT" var_name="Drone_Repair_Aurora" var_value="1" />
+			</ship_ai>
+			<ship_ai type="AUTOREPAIR" CREWLESS="1" />
+		</add_ship>
+	</event>
+	<event type="MODIFY_SHIP" name="PREPARE_Wisp_Repair" all_mob_ships="0">
+		<event_param install_system_model_direct="Wisp_Drone_Reactor:1:1" />
+		<event_param install_system_model_direct="Wisp_Repair_BeamA:3:1" />
+		<event_param install_system_model_direct="Wisp_Repair_BeamB:3:2" />
+	</event>
+	<event type="REMOVE_SHIP" name="REMOVE_Wisp_Repair">
+		<event_param for_ship_name="Starwisp Repair Drone" />
+	</event>
+	<event type="MODIFY_SHIP" name="Wisp_Repair_Beam_Hit">
+		<!-- <event_param ship_color="50:0:0" /> -->
+		<event_param take_scrap="2" />
+		<event_param give_hull="1" />
+		<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="2" />
+		<condition type="SHIP_HULL_ABSENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="100" />
+	</event>
+	<event type="SERVER_VARIABLE" name="Drone_Repair_Check_Aurora_Hull">
+		<event_param var_name="Drone_Repair_Aurora"/>
+		<event_param var_value="0"/>
+		<condition type="SHIP_HULL_PRESENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="100" />
+		<!-- <event_param chain_event="REMOVE_Wisp_Repair" /> -->
+	</event>
+	<event type="SERVER_VARIABLE" name="Drone_Repair_Check_Aurora_Scrap">
+		<event_param var_name="Drone_Repair_Aurora"/>
+		<event_param var_value="0"/>
+		<condition type="SHIP_SCRAP_ABSENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="2" />
+		<!-- <event_param chain_event="REMOVE_Wisp_Repair" /> -->
 	</event>
 
 	<event type="SERVER_VARIABLE" name="WISPSHIP_START_SCAVENGE" var_name="WISPSHIP_SCAVENGE" var_value="1" />
@@ -507,7 +568,7 @@
 	<event type="MODIFY_SHIP" name="WISPSHIP_TAKE_1_DRONES" all_mob_ships="0" take_drones="1" />
 	<event type="MODIFY_SHIP" name="WISPSHIP_GIVE_1_DRONES" all_mob_ships="0" give_drones="1" />
 
-	
+
 
 	<event type="MODIFY_SHIP" name="Aurora_Jet_ALL" all_mob_ships="0" eject_direction="LEFT" eject_all_cargo="1" />
 
@@ -571,10 +632,10 @@
 		<event_param eject_system_type_from_cargo="SHIPYARD" />
 	</event>
 
-	<event type="MODIFY_SHIP" name="AURORA_REPAIR_HULL" all_mob_ships="0">
+	<!-- <event type="MODIFY_SHIP" name="AURORA_REPAIR_HULL" all_mob_ships="0">
 		<event_param take_scrap="2" />
 		<event_param give_hull="1" />
-	</event>
+	</event> -->
 	<event type="MODIFY_MOB" name="Wisp_HEAL_NPC">
 		<event_param give_health="9999" />
 		<event_param give_oxygen="1000" />
@@ -874,42 +935,42 @@
 	<event type="MODIFY_SECTOR" name="ST_DO_NOTHING">
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_1" var_name="WISP_STORY_PROGRESS" var_value="1">
-        <event_param chain_event="Remove_ST_TRIGGER_1" />
+		<event_param chain_event="Remove_ST_TRIGGER_1" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_2" var_name="WISP_STORY_PROGRESS" var_value="2">
-        <event_param chain_event="Remove_ST_TRIGGER_2" />
+		<event_param chain_event="Remove_ST_TRIGGER_2" />
 		<event_param chain_event="UPGRADE_AURORA_SHIELDS2" />
 		<event_param chain_event="UPGRADE_AURORA_ENGINES2" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_3" var_name="WISP_STORY_PROGRESS" var_value="3">
-        <event_param chain_event="Remove_ST_TRIGGER_3" />
+		<event_param chain_event="Remove_ST_TRIGGER_3" />
 		<event_param chain_event="UPGRADE_AURORA_ENGINES3" />
 		<event_param chain_event="UPGRADE_AURORA_SHIELDS3" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_4" var_name="WISP_STORY_PROGRESS" var_value="4">
-        <event_param chain_event="Remove_ST_TRIGGER_4" />
+		<event_param chain_event="Remove_ST_TRIGGER_4" />
 		<event_param chain_event="UPGRADE_AURORA_ENGINES4" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_5" var_name="WISP_STORY_PROGRESS" var_value="5">
-        <event_param chain_event="Remove_ST_TRIGGER_5" />
+		<event_param chain_event="Remove_ST_TRIGGER_5" />
 		<event_param chain_event="UPGRADE_AURORA_SHIELDS4" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_6" var_name="WISP_STORY_PROGRESS" var_value="6">
-        <event_param chain_event="Remove_ST_TRIGGER_6" />
+		<event_param chain_event="Remove_ST_TRIGGER_6" />
 		<event_param chain_event="UPGRADE_AURORA_SHIELDS5" />
 		<event_param chain_event="UPGRADE_AURORA_ENGINES5" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_7" var_name="WISP_STORY_PROGRESS" var_value="7">
-        <event_param chain_event="Remove_ST_TRIGGER_7" />
+		<event_param chain_event="Remove_ST_TRIGGER_7" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_8" var_name="WISP_STORY_PROGRESS" var_value="8">
-        <event_param chain_event="Remove_ST_TRIGGER_8" />
+		<event_param chain_event="Remove_ST_TRIGGER_8" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_9" var_name="WISP_STORY_PROGRESS" var_value="9">
-        <event_param chain_event="Remove_ST_TRIGGER_9" />
+		<event_param chain_event="Remove_ST_TRIGGER_9" />
 	</event>
 	<event type="SERVER_VARIABLE" name="WISP_STORY_TRIGGER_10" var_name="WISP_STORY_PROGRESS" var_value="10">
-        <event_param chain_event="Remove_ST_TRIGGER_10" />
+		<event_param chain_event="Remove_ST_TRIGGER_10" />
 	</event>
 	<event type="MODIFY_SHIP" name="Remove_ST_TRIGGER_1" for_ship_name="Aurora" remove_ship_ai_id="ST_TRIGGER_1" />
 	<event type="MODIFY_SHIP" name="Remove_ST_TRIGGER_2" for_ship_name="Aurora" remove_ship_ai_id="ST_TRIGGER_2" />
@@ -937,14 +998,14 @@
 		<event_param chain_event="SET_CAMPAIGN_SHIP_ID" />
 	</event>
 	<event type="SERVER_VARIABLE" name="SET_CAMPAIGN_SHIP_ID" var_name="CAMPAIGN_SHIP_ID" var_value="[SHIP_NAME]" />
-	
+
 	<event type="MODIFY_SHIP" name="WISPSHIP_GUARD_SHIP_ID" all_mob_ships="0">
 		<event_param chain_events_to_modified="1" />
 		<event_param chain_event="SET_WISPSHIP_GUARD_ID" />
 	</event>
 	<event type="SERVER_VARIABLE" name="SET_WISPSHIP_GUARD_ID" var_name="WISPSHIP_GUARD_ID" var_value="[SHIP_NAME]" >
 		<event_param chain_event="WISPSHIP_GUARD_SHIP" />
-	</event>	
+	</event>
 	<event type="MODIFY_SHIP" name="WISPSHIP_GUARD_SHIP" for_ship_name="Aurora">
 		<ship_ai type="SHIP_GUARD">
 			<ship_ai_param GNAME="VAR(WISPSHIP_GUARD_ID)" />
@@ -987,6 +1048,7 @@
 		<event_param add_system_model_to_cargo="Vacc_Bomb2" />
 		<event_param add_system_model_to_cargo="SHIPYARD" />
 		<event_param add_system_model_to_cargo="TELEPORT2" />
+		<event_param add_system_model_to_cargo="Wisp_Repair_BeamA" />
 		<event_param give_scrap="9999" />
 		<event_param give_missiles="99" />
 		<event_param give_drones="99" />
@@ -1016,5 +1078,9 @@
 
 	<event type="MODIFY_SHIP" name="Debug_Become_Crew" for_ship_name="Aurora">
 		<event_param add_crew="[PLAYER_NAME]" />
+	</event>
+
+	<event type="MODIFY_SHIP" name="Debug_Damage_Aurora" for_ship_name="Aurora">
+		<event_param take_hull="10" />
 	</event>
 </events>

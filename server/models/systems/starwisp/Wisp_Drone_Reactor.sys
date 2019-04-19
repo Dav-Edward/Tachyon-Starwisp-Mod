@@ -1,5 +1,5 @@
 TYPE=REACTOR
-NAME=Wisp Miner Reactor
+NAME=Wisp Drone Reactor
 HP=2000
 ENERGY=5
 MINHP=100

@@ -1,0 +1,6 @@
+SPEED=1
+RANDOM_TARGET_EVENT=0
+RANDOM_OWNER_EVENT=0
+TARGET_EVENT=Wisp_Repair_Beam_Hit
+TARGET_EVENT=Drone_Repair_Check_Aurora_Hull
+TARGET_EVENT=Drone_Repair_Check_Aurora_Scrap
