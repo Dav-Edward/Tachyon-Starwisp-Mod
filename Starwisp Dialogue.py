@@ -64,7 +64,9 @@ Vatish = [
             "[ACTION]On closer observation, the reactor has been repaired with odd-looking crystals.",
             "[ACTION]Noticing you, the figure quickly withdraws from the reactor.",
             "[ACTION]The figure looks androgynous, short, and rather slim.",
-            Choice("[ACTION]Something feels a bit off about their appearance.", [
+            "[ACTION]Something feels a bit off about their appearance.",
+            Label("1stDialogue"),
+            Choice("[ACTION]The figure looks at you.", [
                 [
                     Reply("Who are you?"),
                     Goto("Vatish_WhoAreYou"),
@@ -79,6 +81,7 @@ Vatish = [
                 [
                     Reply("[SKIP](Examine)"),
                     *Vatish_Description,
+                    Goto("1stDialogue"),
                 ],
             ]),
             Label("Vatish_WhoAreYou"),
@@ -756,6 +759,12 @@ Debug = [
 
             "Jettisoning drones...",
             Event("Aurora_Jet_Drones", "NPC"),
+        ],
+        [
+            Reply("DEBUG: Damage your ship."),
+
+            "Taking damage...",
+            Event("Debug_Damage_Aurora", "NPC"),
         ],
         [
             Reply("DEBUG: Force Story Trigger"),

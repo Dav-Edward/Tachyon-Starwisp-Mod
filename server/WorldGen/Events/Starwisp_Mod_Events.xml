@@ -459,13 +459,17 @@
 		<condition type="SHIP_SCRAP_PRESENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="2" />
 		<condition type="SHIP_HULL_ABSENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="100" />
 	</event>
-	<event type="SERVER_VARIABLE" name="Check_Drone_Repair_Aurora">
+	<event type="SERVER_VARIABLE" name="Drone_Repair_Check_Aurora_Hull">
 		<event_param var_name="Drone_Repair_Aurora"/>
 		<event_param var_value="0"/>
-		<event_param any_condition="1" />
-		<condition type="SHIP_HULL_PRESENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="99" />
+		<condition type="SHIP_HULL_PRESENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="100" />
+		<!-- <event_param chain_event="REMOVE_Wisp_Repair" /> -->
+	</event>
+	<event type="SERVER_VARIABLE" name="Drone_Repair_Check_Aurora_Scrap">
+		<event_param var_name="Drone_Repair_Aurora"/>
+		<event_param var_value="0"/>
 		<condition type="SHIP_SCRAP_ABSENT" target_player="0" all_mob_ships="0" check_target_ship="1" qty="2" />
-		<event_param chain_event="REMOVE_Wisp_Repair" />
+		<!-- <event_param chain_event="REMOVE_Wisp_Repair" /> -->
 	</event>
 
 	<event type="SERVER_VARIABLE" name="WISPSHIP_START_SCAVENGE" var_name="WISPSHIP_SCAVENGE" var_value="1" />
@@ -1074,5 +1078,9 @@
 
 	<event type="MODIFY_SHIP" name="Debug_Become_Crew" for_ship_name="Aurora">
 		<event_param add_crew="[PLAYER_NAME]" />
+	</event>
+
+	<event type="MODIFY_SHIP" name="Debug_Damage_Aurora" for_ship_name="Aurora">
+		<event_param take_hull="10" />
 	</event>
 </events>

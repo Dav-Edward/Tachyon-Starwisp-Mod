@@ -52,6 +52,9 @@
             <reply id="R1" next="M3" text="[SKIP][AUTO]" />
         </message>
         <message id="M3" text="[ACTION]Something feels a bit off about their appearance.">
+            <reply id="R1" next="1stDialogue" text="[SKIP][AUTO]" />
+        </message>
+        <message id="1stDialogue" text="[ACTION]The figure looks at you.">
             <reply id="R1" next="Vatish_WhoAreYou" text="Who are you?" />
             <reply id="R2" next="M4" text="You're that Starwisp I saw before I died. (Skip Dialogue)" />
             <reply id="R3" next="M7" text="[SKIP](Examine)" />
@@ -78,7 +81,7 @@
             <reply id="R1" next="M11" text="[SKIP][AUTO]" />
         </message>
         <message id="M11" text="[ACTION]They have a lively expression but unstable personality, yet seems quite friendly.">
-            <reply id="R1" next="Vatish_WhoAreYou" text="[SKIP][AUTO]" />
+            <reply id="R1" next="1stDialogue" text="[SKIP][AUTO]" />
         </message>
         <message id="Vatish_WhoAreYou" text="The name's [NPC_NAME]. Are you one of the crew?">
             <reply id="R1" next="M12" text="Yes, I'm a guard, my name is [PLAYER_NAME]." />
@@ -1066,7 +1069,8 @@
             <reply id="R07" next="M206" text="DEBUG: Jettison your scrap." />
             <reply id="R08" next="M207" text="DEBUG: Jettison your missiles." />
             <reply id="R09" next="M208" text="DEBUG: Jettison your drones." />
-            <reply id="R10" next="M209" text="DEBUG: Force Story Trigger" />
+            <reply id="R10" next="M209" text="DEBUG: Damage your ship." />
+            <reply id="R11" next="M210" text="DEBUG: Force Story Trigger" />
         </message>
         <message id="M200" text="Adding special gear to your ship cargo.">
             <event id="Debug_SpecialGear" target="PLAYER" />
@@ -1104,35 +1108,39 @@
             <event id="Aurora_Jet_Drones" target="NPC" />
             <reply id="R1" next="Wisp_Debug_Menu" text="[SKIP][AUTO]" />
         </message>
-        <message id="M209" text="Which Story Trigger?">
-            <reply id="R1" next="M210" text="Story 1 - Tutorial" />
-            <reply id="R2" next="M211" text="Story 2 - USC" />
-            <reply id="R3" next="M212" text="Story 3 - KEK" />
-            <reply id="R4" next="M213" text="Story 4 - Fought Bears" />
-            <reply id="R5" next="M214" text="Story 5 - Return to Kek with crystal" />
-            <reply id="R6" next="M215" text="Story 6 - EMP_Error Quest" />
+        <message id="M209" text="Taking damage...">
+            <event id="Debug_Damage_Aurora" target="NPC" />
+            <reply id="R1" next="Wisp_Debug_Menu" text="[SKIP][AUTO]" />
         </message>
-        <message id="M210" text="Story 1 Triggered">
+        <message id="M210" text="Which Story Trigger?">
+            <reply id="R1" next="M211" text="Story 1 - Tutorial" />
+            <reply id="R2" next="M212" text="Story 2 - USC" />
+            <reply id="R3" next="M213" text="Story 3 - KEK" />
+            <reply id="R4" next="M214" text="Story 4 - Fought Bears" />
+            <reply id="R5" next="M215" text="Story 5 - Return to Kek with crystal" />
+            <reply id="R6" next="M216" text="Story 6 - EMP_Error Quest" />
+        </message>
+        <message id="M211" text="Story 1 Triggered">
             <event id="WISP_STORY_TRIGGER_1" target="NPC" />
             <reply id="R1" next="Wisp_Debug_Menu" text="[SKIP][AUTO]" />
         </message>
-        <message id="M211" text="Story 2 Triggered">
+        <message id="M212" text="Story 2 Triggered">
             <event id="WISP_STORY_TRIGGER_2" target="NPC" />
             <reply id="R1" next="Wisp_Debug_Menu" text="[SKIP][AUTO]" />
         </message>
-        <message id="M212" text="Story 3 Triggered">
+        <message id="M213" text="Story 3 Triggered">
             <event id="WISP_STORY_TRIGGER_3" target="NPC" />
             <reply id="R1" next="Wisp_Debug_Menu" text="[SKIP][AUTO]" />
         </message>
-        <message id="M213" text="Story 4 Triggered">
+        <message id="M214" text="Story 4 Triggered">
             <event id="WISP_STORY_TRIGGER_4" target="NPC" />
             <reply id="R1" next="Wisp_Debug_Menu" text="[SKIP][AUTO]" />
         </message>
-        <message id="M214" text="Story 5 Triggered">
+        <message id="M215" text="Story 5 Triggered">
             <event id="WISP_STORY_TRIGGER_5" target="NPC" />
             <reply id="R1" next="Wisp_Debug_Menu" text="[SKIP][AUTO]" />
         </message>
-        <message id="M215" text="Story 6 Triggered">
+        <message id="M216" text="Story 6 Triggered">
             <event id="WISP_STORY_TRIGGER_6" target="NPC" />
             <reply id="R1" next="Wisp_Debug_Menu" text="[SKIP][AUTO]" />
         </message>
