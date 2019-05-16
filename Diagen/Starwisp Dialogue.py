@@ -1,4 +1,4 @@
-#from diagen import Label, Choice, Condition, Goto, End, Event, Reply, InlineEvent, EventDef, ChainEvent, SpawnNPC, AddShip, Ai, AddDebris
+from diagen import Label, Choice, Condition, Goto, End, Event, Reply, InlineEvent, EventDef, ChainEvent, SpawnNPC, AddShip, Ai, AddDebris
 #remove above line before compile. This just stops python linter from freaking out
 # Starwisp Dialogue Rewirte
 
@@ -465,6 +465,67 @@ Solaria = [
         ],
         [
             Reply("So... (Other questions)"),
+            Label("About_OtherQuestions"),
+            Choice("What did you want to know?", [
+                [
+                    Reply("About your crew..."),
+                    Label("About_Crew"),
+                    Choice("Who were you curious about?", [
+                        [
+                            Reply("You (Solaria)"),
+                            "Oh me? As you know I'm the captian of this crew.",
+                            "I'm here to try to set things straight if I can.",
+                            "Gaia assigned us to the task of helping you since we're familiar with humaniod races.",
+                            Reply("Who's Gaia?"),
+                            "Oh, right. Gaia is the closest thing to a 'queen' of our kind.",
+                            "The whole collective make decisions as a whole, but Gaia is responcible",
+                            "for making sense of the needs and desires of the collective and take action upon them.",
+                            "We think for ourselves both as individuals, and as a whole.",
+                            Reply("What can you do for us?"),
+                            "Well, you can ask questions like you are now. But as acting captian",
+                            "you can contact me for major ship operations.",
+                            "Let me know if we should follow and guard your ship, mine asteroids, exchange cargo",
+                            "and so on. Just contact me on the COMMS when you need us.",
+                            Reply("Understood. What about another crew member..."),
+                        ],
+                        [
+                            Reply("Vatish"),
+                            "Ah, yes Vatish... Long story that one.",
+                            "They are an ambitious one, thinks very outside the box. Also our best engineer.",
+                            "Don't worry though, Vatish wouldn't hurt you even with their crazy inventions.",
+                            Reply("Is Vatish a he, she or...?"),
+                            "[ACTION]Solaria makes a small laugh.",
+                            "Well, yes, and no. Although Starwisps don't have simple male or female sexes,",
+                            "meaning we can be any gender or no gender, Vatish is a plural 'they'..",
+                            Reply("Huh?"),
+                            "Vatish is two starwisps fused together. It's part of our reproductive cycle.",
+                            "Two starwisps fuse, combine traits, then split off into 3 or more wisplings.",
+                            "We become our own children, each with a piece of the parents, mind and body.",
+                            "Vatish however is... 'unresolved'. The two halves haven't sorted themselves out.",
+                            "Hence the split personality. They are half way between being two and one.",
+                            Reply("That must be confusing."),
+                            "Perhaps, but it's in our nature.",
+                            Reply("What does Vatish do?"),
+                            "Vatish is our lead engineer. They will do research from the station there.",
+                            "They already turned the station's reactor and ship hanger into a lab.",
+                            "We will share discovery data and Vatish will send us designs as we go.",
+                            "beyond that, Vatish has modified small ships so if any other cloned people",
+                            "wake up, they will send them our way to assist us.",
+                            Reply("What about someone else?"),
+                            Goto("About_Crew"),
+                        ],
+                        [
+                            Reply("(Back to other questions)"),
+                            Goto("About_OtherQuestions"),
+                        ],
+                        [
+                            Reply("(Main Menu)"),
+                            Goto("Main")
+                        ],
+
+                    ]),
+                ],
+            ]),
             "(Currently no other questions available)",
             Reply("(Main Menu)"),
             Goto("Main"),
