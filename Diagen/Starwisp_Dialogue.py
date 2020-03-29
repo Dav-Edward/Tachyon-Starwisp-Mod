@@ -1,4 +1,8 @@
+
 from diagen import Label, Choice, Condition, Goto, End, Event, Reply, InlineEvent, EventDef, ChainEvent, SpawnNPC, AddShip, Ai, AddDebris
+=======
+#from diagen import Label, Choice, Condition, Goto, End, Event, Reply, InlineEvent, EventDef, ChainEvent, SpawnNPC, AddShip, Ai, AddDebris
+
 #remove above line before compile. This just stops python linter from freaking out
 # Starwisp Dialogue Rewirte
 
@@ -529,13 +533,6 @@ Solaria = [
                     ]),
                 ],
             ]),
-            "(Currently no other questions available)",
-            Reply("(Main Menu)"),
-            Goto("Main"),
-        ],
-    ]),
-
-
     Label("Requests"),
     Choice("What can I do for ya?", [
         [
