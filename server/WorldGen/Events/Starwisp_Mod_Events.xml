@@ -232,7 +232,7 @@
 		<event_param install_system_model_direct="MEDICAL2:8:4" />
 		<event_param install_system_model_direct="WEAPONS_CONTROL2:10:4" />
 		<event_param install_system_model_direct="Wisp_Engines1:2:5" />
-		<event_param install_system_model_direct="Wisp_HyperDrive1:2:2" />
+		<event_param install_system_model_direct="Wisp_HyperDrive3:2:2" />
 		<event_param install_system_model_direct="Wisp_Sensors1:13:1" />
 		<event_param install_system_model_direct="Wisp_Shields1:10:2" />
 		<event_param install_system_model_direct="CAPACITOR5:8:6" />
