@@ -69,11 +69,6 @@
 
 
 	<event type="MODIFY_SHIP" name="PUCC_Follow_Beacon" for_ship_name="P.U.C.C" all_mob_ships="0">
-		<!-- <ship_ai type="EVENT_TRIGGER" CREWLESS="1" TIMER="11" EVENT="WARP_PUCC">
-			<ship_ai_condition type="SECTOR_COORDS_ABSENT">
-				<condition_param coords="VAR(PUCC_BEACON_SECTOR_LOC)" />
-			</ship_ai_condition>
-		</ship_ai> -->
 		<ship_ai type="EVENT_TRIGGER" CREWLESS="1" TIMER="6" EVENT="PUCC_ChargeHD" ai_id="PUCC_ChargeHD" >
 			<ship_ai_condition type="SECTOR_SHIPS_ABSENT" ship_name="VAR(CAMPAIGN_SHIP_ID)" qty="1" />
 		</ship_ai>
@@ -111,20 +106,20 @@
 
 	<event type="MODIFY_SHIP" name="WARP_PUCC" hyper_jump="VAR(PUCC_BEACON_SECTOR_LOC)" />
 
-	<event type="MODIFY_SHIP" name="Extinguish_PUCC" for_ship_name="P.U.C.C" put_out_fires="1" />
+	<event type="MODIFY_SHIP" name="Extinguish_PUCC" put_out_fires="1" />
 
 	<event type="MODIFY_SHIP" name="PUCC_Bust" all_mob_ships="0">
 		<event_param break_system_type="HYPERDRIVE" />
 		<event_param break_system_type="SENSORS" />
 	</event>
 
-	<event type="MODIFY_SHIP" name="PUCC_ChargeHD" for_ship_name="P.U.C.C" all_mob_ships="0">
+	<event type="MODIFY_SHIP" name="PUCC_ChargeHD" all_mob_ships="0">
 		<event_param charge_hd="10000"></event_param>
 	</event>
 
 	<event type="SERVER_VARIABLE" name="SET_PUCC_GID_SECTOR" var_name="PUCC_GID_SECTOR" var_value="VAR(PUCC_BEACON_SECTOR_LOC)" />
 
-	<event type="MODIFY_SHIP" name="PUCC_GID_CLEANUP" for_ship_name="P.U.C.C" all_mob_ships="0" chain_event="PUCC_GID_CLEANUP2">
+	<event type="MODIFY_SHIP" name="PUCC_GID_CLEANUP" all_mob_ships="0" chain_event="PUCC_GID_CLEANUP2">
 		<event_param remove_ship_ai_id="PUCC_GID_CLEANUP" />
 	</event>
 	<event type="SERVER_VARIABLE" name="PUCC_GID_CLEANUP2" var_name="PUCC_GID_SECTOR" var_value="" />
